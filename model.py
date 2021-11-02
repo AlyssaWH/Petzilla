@@ -21,8 +21,7 @@ class User(db.Model):
     contact_preference = db.Column(db.String(10), nullable=False)
     remind_time_preference = db.Column(db.Integer, nullable=False)
 
-    user_to_pet = db.relationship('Pet', back_populates="pet_to_user")
-    user_to_assoc = db.relationship('PetxUser', back_populates="assoc_to_user")
+    assoc_objects = db.relationship('PetxUser', back_populates="user_objects")
 
 #alyssa= User(fname="Alyssa", lname="WH", email="test@test.com", phone='1234567891', password='fake', contact_preference="phone", remind_time_preference='7')
 
@@ -48,11 +47,11 @@ class Pet(db.Model):
     
     photo = db.Column(db.String(100))
 
-    pet_to_user = db.relationship('User', back_populates="user_to_pet")
-    pet_to_vet = db.relationship('Vet', back_populates="vet_to_pet")
-    pet_to_pharm = db.relationship('Pharmacy', back_populates="pharm_to_pet")
-    pet_to_med = db.relationship('Medicine', back_populates="med_to_pet")
-    pet_to_assoc = db.relationship('PetxUser', back_populates="assoc_to_pet")
+    
+    vet_objects = db.relationship('Vet', back_populates="pet_objects")
+    pharm_objects = db.relationship('Pharmacy', back_populates="pet_objects")
+    med_objects = db.relationship('Medicine', back_populates="pet_objects")
+    assoc_objects = db.relationship('PetxUser', back_populates="pet_objects")
 
     #mozilla = Pet(user_id=1, name="Mozilla", animal_species='dog', birth_year='2010', weight=60)
 
@@ -69,13 +68,14 @@ class Pet(db.Model):
 class PetxUser(db.Model):
     """Data model for the PetxUser association."""
     #how does this auto-update?
+    #it  doesn't ... you will have to write the function
     __tablename__ = "pets_users"
     pet_user_assoc_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     pet_id = db.Column(db.Integer, db.ForeignKey('pets.pet_id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
    
-    assoc_to_user = db.relationship('User', back_populates="user_to_assoc")
-    assoc_to_pet = db.relationship('Pet', back_populates="pet_to_assoc")
+    user_objects = db.relationship('User', back_populates="assoc_objects")
+    pet_objects = db.relationship('Pet', back_populates="assoc_objects")
 
 
 class Vet(db.Model):
@@ -89,7 +89,7 @@ class Vet(db.Model):
     email = db.Column(db.String(100))
     phone = db.Column(db.String(25), nullable=False)
 
-    vet_to_pet = db.relationship('Pet', back_populates="pet_to_vet")
+    pet_objects = db.relationship('Pet', back_populates="vet_objects")
 
 class Pharmacy(db.Model):
     """Data model for a pet's pharmacy."""
@@ -101,8 +101,8 @@ class Pharmacy(db.Model):
     email = db.Column(db.String(100))
     phone = db.Column(db.String(25), nullable=False)
 
-    pharm_to_pet = db.relationship('Pet', back_populates="pet_to_pharm")
-    pharm_to_med = db.relationship('Medicine', back_populates="med_to_pharm")
+    pet_objects = db.relationship('Pet', back_populates="pharm_objects")
+    med_objects = db.relationship('Medicine', back_populates="pharm_objects")
 
 
 class Medicine(db.Model):
@@ -120,8 +120,8 @@ class Medicine(db.Model):
     entry_date = db.Column(db.Date)
     date_used_by = db.Column(db.Date)
 
-    med_to_pet = db.relationship('Pet', back_populates="pet_to_med")
-    med_to_pharm = db.relationship('Pharmacy', back_populates="pharm_to_med")
+    pet_objects = db.relationship('Pet', back_populates="med_objects")
+    pharm_objects = db.relationship('Pharmacy', back_populates="med_objects")
 
  
 
