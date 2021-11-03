@@ -77,6 +77,11 @@ class PetxUser(db.Model):
     user_objects = db.relationship('User', back_populates="assoc_objects")
     pet_objects = db.relationship('Pet', back_populates="assoc_objects")
 
+    def __repr__(self):
+        """Show info about pet."""
+
+        return f"<Pet pet id={self.pet_id}  Pet Parent Is: {self.user_id}>"
+
 
 class Vet(db.Model):
     """Data model for a pet's vet."""
@@ -102,7 +107,6 @@ class Pharmacy(db.Model):
     phone = db.Column(db.String(25), nullable=False)
 
     pet_objects = db.relationship('Pet', back_populates="pharm_objects")
-    med_objects = db.relationship('Medicine', back_populates="pharm_objects")
 
 
 class Medicine(db.Model):
@@ -110,18 +114,17 @@ class Medicine(db.Model):
     __tablename__ = "medicines"
     med_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     pet_id = db.Column(db.Integer, db.ForeignKey('pets.pet_id'), nullable=False)
-    pharmacy_id = db.Column(db.Integer, db.ForeignKey('pharmacies.pharmacy_id'))
 
     med_name = db.Column(db.String(50), nullable=False)
     prescrip_num = db.Column(db.Integer)
-    dose_amount = db.Column(db.String(50), nullable=False)
-    times_per_day = db.Column(db.Integer)
-    times_per_month = db.Column(db.Integer)
+    dose_amount = db.Column(db.Integer, nullable=False)
+    doses_per_day = db.Column(db.Integer)
+    doses_per_month = db.Column(db.Integer)
     entry_date = db.Column(db.Date)
+    days_left_at_entry = db.Column(db.Integer, nullable=False)
     date_used_by = db.Column(db.Date)
 
     pet_objects = db.relationship('Pet', back_populates="med_objects")
-    pharm_objects = db.relationship('Pharmacy', back_populates="med_objects")
 
  
 
