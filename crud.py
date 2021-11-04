@@ -1,7 +1,7 @@
 """CRUD operations."""
 
 from model import db, User, Pet, PetxUser, Medicine, Pharmacy, Vet, connect_to_db
-from datetime import date
+from datetime import date, timedelta
 
 if __name__ == '__main__':
     from server import app
@@ -72,17 +72,27 @@ email='null'):
 def create_medicine(pet_id, med_name, dose_amount, days_left_at_entry, prescrip_num=None,
 doses_per_day=None, doses_per_month=None, entry_date=date.today()):
     """Create and return a new medicine entry"""
-    #dateusedby = use a separate function to calculate this
+    #dateusedby = is this the best way to calc this?
+    date_used_by = entry_date + timedelta(days=days_left_at_entry)
+    
 
     medicine = Medicine(pet_id=pet_id, med_name=med_name, days_left_at_entry=days_left_at_entry,
     dose_amount=dose_amount, prescrip_num=prescrip_num,
     doses_per_day=doses_per_day, doses_per_month=doses_per_month,
-    entry_date=entry_date)
+    entry_date=entry_date, date_used_by=date_used_by)
+
+    
 
     db.session.add(medicine)
     db.session.commit()
-
+    
     return medicine
+
+
+# def calculate_med_reminder(med_id, user_id):
+#     remind=seed.
+#     update_date_used_by = medicines.update()\.where()
+                    
 
 
 #   med_name = db.Column(db.String(50), nullable=False)

@@ -21,7 +21,7 @@ class User(db.Model):
     contact_preference = db.Column(db.String(10), nullable=False)
     remind_time_preference = db.Column(db.Integer, nullable=False)
 
-    assoc_objects = db.relationship('PetxUser', back_populates="user_objects")
+    #assoc_objects = db.relationship('PetxUser', back_populates="user_objects")
 
 #alyssa= User(fname="Alyssa", lname="WH", email="test@test.com", phone='1234567891', password='fake', contact_preference="phone", remind_time_preference='7')
 
@@ -51,8 +51,9 @@ class Pet(db.Model):
     vet_objects = db.relationship('Vet', back_populates="pet_objects")
     pharm_objects = db.relationship('Pharmacy', back_populates="pet_objects")
     med_objects = db.relationship('Medicine', back_populates="pet_objects")
-    assoc_objects = db.relationship('PetxUser', back_populates="pet_objects")
+    #assoc_objects = db.relationship('PetxUser', back_populates="pet_objects")
 
+    owners = db.relationship("User", secondary="pets_users", backref="pets")
     #mozilla = Pet(user_id=1, name="Mozilla", animal_species='dog', birth_year='2010', weight=60)
 
 
@@ -74,8 +75,8 @@ class PetxUser(db.Model):
     pet_id = db.Column(db.Integer, db.ForeignKey('pets.pet_id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
    
-    user_objects = db.relationship('User', back_populates="assoc_objects")
-    pet_objects = db.relationship('Pet', back_populates="assoc_objects")
+    # user_objects = db.relationship('User', back_populates="assoc_objects")
+    # pet_objects = db.relationship('Pet', back_populates="assoc_objects")
 
     def __repr__(self):
         """Show info about pet."""
