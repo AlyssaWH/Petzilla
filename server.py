@@ -61,6 +61,10 @@ def user_login():
     
     return redirect("/")
 
+# @app.route("/addpet")
+# def add_a_pet():
+
+
 if __name__ == "__main__":
     # DebugToolbarExtension(app)
     connect_to_db(app)
