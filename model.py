@@ -127,7 +127,6 @@ class Medicine(db.Model):
 
     pet_objects = db.relationship('Pet', back_populates="med_objects")
 
- 
 
 
 def connect_to_db(app):

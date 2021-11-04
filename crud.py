@@ -24,6 +24,12 @@ def create_user(fname, lname, phone, email, password,
 
     return user
 
+def get_user_by_email(email):
+    """Get a user if email exists, otherwise return none"""
+    
+    return User.query.filter(User.email == email).first()
+
+
 
 def create_pet(user_id, name, animal_species, birth_year='null', weight='null', 
     photo='null'):
@@ -88,9 +94,9 @@ doses_per_day=None, doses_per_month=None, entry_date=date.today()):
     
     return medicine
 
+#I'm not totally sure if I need this right now
+# def calculate_med_reminder(user, medicine):
 
-# def calculate_med_reminder(med_id, user_id):
-#     remind=seed.
 #     update_date_used_by = medicines.update()\.where()
                     
 
