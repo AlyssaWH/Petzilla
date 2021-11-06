@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}Petzilla - Add Your Pets{% endblock %}
+
+{% block body %}
+  <h1>Welcome to Petzilla, {{user.fname}}!!</h1>
+
+  <h2>Navigation</h2>
+  <ul>
+    <li><a href="/settings">View all settings</a></li>
+    <li><a href="/pets">View my pet pages</a></li>
+    {%for pet in pets%}
+    <li><a href="/pets/{{pet.pet_id}}">{{pet.name}}</a></li>
+    
+
+    {%endfor%}
+
+    <li><a href="/pets">View my pet pages</a></li>
+    <li><a href="/pets">View my pet pages</a></li>
+
+  </ul>
+
+
+
+  <h2>Add a Pet to Your Account</h2>
+  <form action="/add-pet" method='POST'>
+    <p>
+      Your Pet's Name <input type="text" name="pet-name">
+    </p>
+
+    <p>
+      Species <input type="text" name="species">
+    </p>
+
+    <p>
+        Birth Year (optional) <input type="integer" name="birth-year">
+      </p>
+      <p>
+        Weight in pounds (optional) <input type="integer" name="weight">
+      </p>
+      <p>
+        Upload your pet's photo! <input type="file" name="photo">
+      </p>
+   
+    <p>
+      <input type="submit" value="Add your Pet!">
+    </p>
+  </form>
+  
+
+
+{% endblock %}

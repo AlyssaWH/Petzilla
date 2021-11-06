@@ -29,6 +29,12 @@ def get_user_by_email(email):
     
     return User.query.filter(User.email == email).first()
 
+def get_user_by_id(user_id):
+    """Return a user by primary key."""
+
+    return User.query.get(user_id)
+
+
 
 
 def create_pet(user_id, name, animal_species, birth_year='null', weight='null', 
@@ -43,6 +49,17 @@ def create_pet(user_id, name, animal_species, birth_year='null', weight='null',
     db.session.commit()
 
     return pet
+
+def get_pet_by_id(pet_id):
+    """Return a user by primary key."""
+
+    return Pet.query.get(pet_id)
+
+def get_pet_by_user_id(user_id):
+    """Get all pets that a user has."""
+    return Pet.query.filter(User.user_id == user_id).all()
+
+    
 
 def create_pet_user_assoc(user_id, pet_id):
     """Establish the association between user and pets"""
@@ -94,9 +111,12 @@ doses_per_day=None, doses_per_month=None, entry_date=date.today()):
     
     return medicine
 
-#I'm not totally sure if I need this right now
-# def calculate_med_reminder(user, medicine):
 
+
+#I'm not totally sure if I need this right now
+def calculate_med_reminder(user, medicine):
+    reminder_date = medicine.date_used_by - timedelta(days=user.remind_time_preference)
+    return reminder_date
 #     update_date_used_by = medicines.update()\.where()
                     
 
