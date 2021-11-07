@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Petzilla - Add Your Pet's Vet{% endblock %}
+
+{% block body %}
+  <h1>Welcome to Petzilla!!</h1>
+
+  <h2>Navigation</h2>
+  <ul>
+    <li><a href="/settings">View all settings</a></li>
+    <li><a href="/pets">View my pet pages</a></li>
+   
+
+  <h2>Add a Vet for Your Pet</h2>
+  <form action="/pets/{{pet.pet_id}}/add-vet" method='POST'>
+    <input type="hidden" id="pet_id" name="pet_id" value={{pet.pet_id}}>
+    <p>
+      Vet's First Name <input type="text" name="vet-fname">
+    </p>
+
+    <p>
+      Vet's Last Name <input type="text" name="vet-lname">
+    </p>
+
+    <p>
+        Practice or Hospital Name <input type="text" name="practice-name">
+      </p>
+      <p>
+        Email (optional) <input type="text" name="email">
+      </p>
+      <p>
+        10-digit phone <input type="text" name="phone">
+      </p>
+   
+    <p>
+      <input type="submit" value="Add your Pet's Vet!">
+    </p>
+  </form>
+  
+
+
+{% endblock %}

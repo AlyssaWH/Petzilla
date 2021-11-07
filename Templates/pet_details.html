@@ -4,11 +4,14 @@
 
 {% block body %}
 <h1>{{ pet.name }}</h1>
+<h1>{{ vet.fname, vet.lname, vet.practice_name}}</h1>
+
 
 What would you like to do?
 
 Add a medicine
-Add vet info
+Add vet info -     <li><a href="/add-vet-landing">Add vet info</a></li>
+
 Add pharmacy info
 
 {% endblock %}

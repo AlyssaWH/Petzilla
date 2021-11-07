@@ -81,6 +81,14 @@ email='null'):
 
     return vet
 
+def get_vet_by_pet_id(pet_id):
+    """Get a vet that a pet has."""
+    #return Vet.query.filter(Pet.pet_id == pet_id)
+    return Vet.query.get(pet_id)
+
+    
+
+
 def create_pharmacy(pet_id, pharm_name, phone,  
 email='null'):
     """Create and return a new pharmacy"""

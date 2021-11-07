@@ -92,14 +92,40 @@ def show_pet(pet_id):
     """Show details on a particular pet."""
 
     pet = crud.get_pet_by_id(pet_id)
+
+    vet= crud.get_vet_by_pet_id(pet_id)
     
 
 
 
-    return render_template("pet_details.html", pet=pet)
+    return render_template("pet_details.html", pet=pet, vet=vet)
 
+@app.route("/pets/<pet_id>/add-vet", methods=['POST'])
+def add_a_vet(pet_id):
+    """Let user add a vet for a pet"""
+    pet_id = request.form.get("pet_id")
+    vet_fname = request.form.get("vet-fname")
+    vet_lname= request.form.get("vet-lname")
+    practice_name=request.form.get("practice-name")
+    email=request.form.get("email")
+    phone=request.form.get("phone")
+    
 
+    crud.create_vet(pet_id, practice_name, phone, vet_fname, vet_lname, email)
+    flash("Vet created!  Adding to your pet's page")
+    return redirect ("/pets/<pet_id>")
 
+@app.route("/pets/<pet_id>/add-vet-landing")
+def show_vet_form(pet_id):
+    """Let user fill out the vet form"""
+    pet = crud.get_pet_by_id(pet_id)
+
+    
+    return render_template("add-vet.html", pet=pet)
+    
+
+  
+     
 
 if __name__ == "__main__":
     # DebugToolbarExtension(app)
