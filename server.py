@@ -67,8 +67,12 @@ def user_login():
 def show_dashboard():
     user=crud.get_user_by_id(session["user"])
     pets=crud.get_pet_by_user_id(session["user"])
+    for pet in pets:
+        medicine=crud.get_meds_by_pet_id(pet.pet_id)
 
-    return render_template("dashboard.html", user=user, pets=pets)
+
+    return render_template("dashboard.html", user=user, pets=pets,
+    medicine=medicine)
 
 @app.route("/add-pet", methods=['POST'])
 def add_a_pet():
@@ -94,16 +98,19 @@ def show_pet(pet_id):
     pet = crud.get_pet_by_id(pet_id)
 
     vet= crud.get_vet_by_pet_id(pet_id)
+
+    medicines=crud.get_meds_by_pet_id(pet_id)
+    pharmacy = crud.get_pharm_by_pet_id(pet_id)
     
 
 
 
-    return render_template("pet_details.html", pet=pet, vet=vet)
+    return render_template("pet_details.html", pet=pet, vet=vet, medicines=medicines, pharmacy=pharmacy)
 
 @app.route("/pets/<pet_id>/add-vet", methods=['POST'])
 def add_a_vet(pet_id):
     """Let user add a vet for a pet"""
-    pet_id = request.form.get("pet_id")
+    
     vet_fname = request.form.get("vet-fname")
     vet_lname= request.form.get("vet-lname")
     practice_name=request.form.get("practice-name")
@@ -113,18 +120,42 @@ def add_a_vet(pet_id):
 
     crud.create_vet(pet_id, practice_name, phone, vet_fname, vet_lname, email)
     flash("Vet created!  Adding to your pet's page")
-    return redirect ("/pets/<pet_id>")
+    return redirect ("/dashboard")
 
-@app.route("/pets/<pet_id>/add-vet-landing")
-def show_vet_form(pet_id):
-    """Let user fill out the vet form"""
-    pet = crud.get_pet_by_id(pet_id)
+@app.route("/pets/<pet_id>/add-med", methods=['POST'])
+def add_a_med(pet_id):
+    """Let user add a medicine for a pet"""
+
+    med_name = request.form.get("med-name")
+    prescrip_num = request.form.get("prescrip-num")
+    dose_amount= request.form.get("dose-amount")
+    doses_per_day=request.form.get("doses-per-day")
+    doses_per_month=request.form.get("doses-per-month")
+    days_left_at_entry=request.form.get("days-left-at-entry")
+    
+
+    crud.create_medicine(pet_id,med_name,dose_amount,int(days_left_at_entry),
+    prescrip_num,doses_per_day,doses_per_month)
+    flash("Medicine created!  Adding to your pet's page")
+    return redirect ("/dashboard")
+
+
+@app.route("/pets/<pet_id>/add-pharm", methods=['POST'])
+def add_a_pharmacy(pet_id):
+    """Let user add a pharmacy for a pet"""
+
+    pharm_name = request.form.get("pharm-name")
+    email = request.form.get("email")
+    phone= request.form.get("phone")
+   
+
+    crud.create_pharmacy(pet_id,pharm_name,phone)
+    flash("Pharmacy created!  Adding to your pet's page")
+    return redirect ("/dashboard")
+
 
     
-    return render_template("add-vet.html", pet=pet)
-    
 
-  
      
 
 if __name__ == "__main__":

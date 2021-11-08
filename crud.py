@@ -83,8 +83,8 @@ email='null'):
 
 def get_vet_by_pet_id(pet_id):
     """Get a vet that a pet has."""
-    #return Vet.query.filter(Pet.pet_id == pet_id)
-    return Vet.query.get(pet_id)
+    #(Vet.query.filter(Pet.pet_id == pet_id))
+    return Vet.query.filter(Vet.pet_id == pet_id).first()
 
     
 
@@ -99,6 +99,13 @@ email='null'):
     db.session.commit()
 
     return pharmacy
+
+def get_pharm_by_pet_id(pet_id):
+    """Get a pharmacy that a pet has."""
+    #(Vet.query.filter(Pet.pet_id == pet_id))
+    return Pharmacy.query.filter(Pharmacy.pet_id == pet_id).first()
+
+
 
 def create_medicine(pet_id, med_name, dose_amount, days_left_at_entry, prescrip_num=None,
 doses_per_day=None, doses_per_month=None, entry_date=date.today()):
@@ -119,6 +126,12 @@ doses_per_day=None, doses_per_month=None, entry_date=date.today()):
     
     return medicine
 
+def get_meds_by_pet_id(pet_id):
+    return Medicine.query.filter(Medicine.pet_id == pet_id).all()
+
+   
+
+
 
 
 #I'm not totally sure if I need this right now
@@ -129,23 +142,7 @@ def calculate_med_reminder(user, medicine):
                     
 
 
-#   med_name = db.Column(db.String(50), nullable=False)
-#     prescrip_num = db.Column(db.Integer)
-#     dose_amount = db.Column(db.String(50), nullable=False)
-#     doses_per_day = db.Column(db.Integer)
-#     doses_per_month = db.Column(db.Integer)
-#     entry_date = db.Column(db.Date)
-#     date_used_by = db.Column(db.Date)
 
-   
-
-
-
-
-
-
-    # def create_user(email, password):
-    # """Create and return a new user."""
 
   
 

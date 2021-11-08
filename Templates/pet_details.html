@@ -6,12 +6,99 @@
 <h1>{{ pet.name }}</h1>
 <h1>{{ vet.fname, vet.lname, vet.practice_name}}</h1>
 
+{%for medicine in medicines%}
 
-What would you like to do?
+<h1>{{ medicine.med_name, medicine.date_used_by.strftime('%m-%d-%Y')}}</h1>
+{%endfor%}
+
+<h1>{{ pharmacy.pharm_name, pharmacy.phone}}</h1>
+
+
+What would you like to do?<h2>Add a Vet for Your Pet</h2>
+<form action="/pets/{{pet.pet_id}}/add-vet" method='POST'>
+  <input type="hidden" id="pet_id" name="pet_id" value={{pet.pet_id}}>
+  <p>
+    Vet's First Name <input type="text" name="vet-fname">
+  </p>
+
+  <p>
+    Vet's Last Name <input type="text" name="vet-lname">
+  </p>
+
+  <p>
+      Practice or Hospital Name <input type="text" name="practice-name">
+    </p>
+    <p>
+      Email (optional) <input type="text" name="email">
+    </p>
+    <p>
+      10-digit phone <input type="text" name="phone">
+    </p>
+ 
+  <p>
+    <input type="submit" value="Add your Pet's Vet!">
+  </p>
+</form>
+
+
 
 Add a medicine
-Add vet info -     <li><a href="/add-vet-landing">Add vet info</a></li>
+<h2>Add a Medicine for Your Pet</h2>
+<form action="/pets/{{pet.pet_id}}/add-med" method='POST'>
+  <input type="hidden" id="pet_id" name="pet_id" value={{pet.pet_id}}>
+  <p>
+    Medicine Name <input type="text" name="med-name">
+  </p>
+  <p>
+    Prescription Number <input type="text" name="prescrip-num">
+  </p>
+
+  <p>
+    Dose Amount (enter in milligrams) <input type="integer" name="dose-amount">
+  </p>
+
+  <p>
+      Doses Per Day <input type="integer" name="doses-per-day">
+    </p>
+    <p>
+      OR Doses Per Month <input type="integer" name="doses-per-month">
+    </p>
+    <p>
+      Your Current Supply (enter how many days of meds 
+      you have left) <input type="integer" name="days-left-at-entry">
+    </p>
+ 
+  <p>
+    <input type="submit" value="Add your Pet's Medicine!">
+  </p>
+</form>
+
+   
+
 
 Add pharmacy info
+
+<h2>Add a Pharmacy for Your Pet</h2>
+<form action="/pets/{{pet.pet_id}}/add-pharm" method='POST'>
+  <input type="hidden" id="pet_id" name="pet_id" value={{pet.pet_id}}>
+  <p>
+    Pharmacy Name <input type="text" name="pharm-name">
+  </p>
+
+  <p>
+    Email <input type="text" name="email">
+  </p>
+
+ 
+    <p>
+      10-digit phone <input type="text" name="phone">
+    </p>
+ 
+  <p>
+    <input type="submit" value="Add your Pet's Pharmacy!">
+  </p>
+</form>
+
+
 
 {% endblock %}
