@@ -37,6 +37,10 @@ def register_user():
     user = crud.get_user_by_email(email)
     if user:
         flash("This account already exists, try again")
+    elif len(phone) != 10:
+        flash("Phone number must be ten digits, try again")
+    elif "-" in phone:
+        flash("Phone should be numbers only, no dashes.  Try again")
     else:
         crud.create_user(fname, lname, phone, email, password, 
         contact_preference, remind_time_preference)
@@ -67,12 +71,13 @@ def user_login():
 def show_dashboard():
     user=crud.get_user_by_id(session["user"])
     pets=crud.get_pet_by_user_id(session["user"])
-    for pet in pets:
-        medicine=crud.get_meds_by_pet_id(pet.pet_id)
+    
+    #sort pets by when the medicine runs out
+    #query medicines by expiry  date and display that way
 
+    
 
-    return render_template("dashboard.html", user=user, pets=pets,
-    medicine=medicine)
+    return render_template("dashboard.html", user=user, pets=pets)
 
 @app.route("/add-pet", methods=['POST'])
 def add_a_pet():
@@ -83,11 +88,19 @@ def add_a_pet():
     weight=request.form.get("weight")
     photo=request.form.get("photo")
 
+#if birth year is empty, set  it to none, same with weight etc.
+    if birth_year=="":
+        birth_year=None
+    if weight=="":
+        weight=None
+    if photo=="":
+        photo=None
+    
+
     crud.create_pet(session["user"],pet_name,species,birth_year,
     weight,photo)
 
    
-    #pet id is not defined... how get it?
     flash("Great!  Your pet is added!")
     return redirect ("/dashboard")
 
@@ -103,9 +116,12 @@ def show_pet(pet_id):
     pharmacy = crud.get_pharm_by_pet_id(pet_id)
     
 
+    if session["user"]!=pet.user_id:
+        flash("This pet doesn't belong to you; returned to your dashboard")
+        return redirect ("/dashboard")
 
-
-    return render_template("pet_details.html", pet=pet, vet=vet, medicines=medicines, pharmacy=pharmacy)
+    else:
+        return render_template("pet_details.html", pet=pet, vet=vet, medicines=medicines, pharmacy=pharmacy)
 
 @app.route("/pets/<pet_id>/add-vet", methods=['POST'])
 def add_a_vet(pet_id):
@@ -116,6 +132,13 @@ def add_a_vet(pet_id):
     practice_name=request.form.get("practice-name")
     email=request.form.get("email")
     phone=request.form.get("phone")
+
+    if vet_fname=="":
+        vet_fname=None
+    if vet_lname=="":
+        vet_lname=None
+    if email=="":
+        email=None
     
 
     crud.create_vet(pet_id, practice_name, phone, vet_fname, vet_lname, email)
@@ -132,6 +155,13 @@ def add_a_med(pet_id):
     doses_per_day=request.form.get("doses-per-day")
     doses_per_month=request.form.get("doses-per-month")
     days_left_at_entry=request.form.get("days-left-at-entry")
+
+    if prescrip_num=="":
+        prescrip_num=None
+    if doses_per_day=="":
+        doses_per_day=None
+    if doses_per_month=="":
+        doses_per_month=None
     
 
     crud.create_medicine(pet_id,med_name,dose_amount,int(days_left_at_entry),
@@ -147,6 +177,10 @@ def add_a_pharmacy(pet_id):
     pharm_name = request.form.get("pharm-name")
     email = request.form.get("email")
     phone= request.form.get("phone")
+
+    if email=="":
+        email=None
+   
    
 
     crud.create_pharmacy(pet_id,pharm_name,phone)
@@ -154,6 +188,13 @@ def add_a_pharmacy(pet_id):
     return redirect ("/dashboard")
 
 
+@app.route('/logout', methods=["POST"])
+def logout():
+    """Log out/ delete session."""
+    flash("Thanks for visiting Petzilla!")
+
+    del session["user"]
+    return redirect('/')
     
 
      

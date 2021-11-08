@@ -37,8 +37,8 @@ def get_user_by_id(user_id):
 
 
 
-def create_pet(user_id, name, animal_species, birth_year='null', weight='null', 
-    photo='null'):
+def create_pet(user_id, name, animal_species, birth_year=None, weight=None, 
+    photo=None):
     """Create and return a new pet."""
 
     pet = Pet(user_id=user_id, name=name, animal_species=animal_species, birth_year=birth_year, weight=weight, 
@@ -57,7 +57,7 @@ def get_pet_by_id(pet_id):
 
 def get_pet_by_user_id(user_id):
     """Get all pets that a user has."""
-    return Pet.query.filter(User.user_id == user_id).all()
+    return Pet.query.filter(Pet.user_id == user_id).all()
 
     
 

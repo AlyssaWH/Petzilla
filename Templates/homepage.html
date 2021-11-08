@@ -4,13 +4,13 @@
 {% block body %}
   <h1>Welcome to Petzilla!!</h1>
 
-  <h2>Navigation</h2>
+  <!-- <h2>Navigation</h2>
   <ul>
     <li><a href="/settings">View all settings</a></li>
     <li><a href="/pets">View my pets</a></li>
-  </ul>
+  </ul> -->
 
-  <h2>Login to an Account</h2>
+  <h2>Log In to an Account</h2>
   <form action="/login" method="POST">
     <p>
       Email <input type="text" name="login-email">
@@ -21,7 +21,7 @@
     </p>
 
     <p>
-      <input type="submit">
+      <input type="submit" value="Log In">
     </p>
   </form>
   
@@ -42,7 +42,7 @@
         Last Name <input type="lname" name="lname">
       </p>
       <p>
-        10-digit phone number <input type="phone" name="phone">
+        10-digit phone number, no dashes! <input type="phone" name="phone">
       </p>
       <p>
         Contact Preference: phone or email
@@ -54,7 +54,7 @@
         <input type="remind_time_preference" name="remind_time_preference">
       </p>
     <p>
-      <input type="submit">
+      <input type="submit" value="Create Your Account">
     </p>
   </form>
 

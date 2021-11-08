@@ -6,15 +6,29 @@
 
   <h2>Navigation</h2>
   <ul>
-    <li><a href="/settings">View all settings</a></li>
-    <li><a href="/pets">View my pet pages</a></li>
+    <!-- <li><a href="/settings">View all settings</a></li>
+    <li><a href="/pets">View my pet pages</a></li> -->
+    <h2>Log Out</h2>
+    <form action="/logout" method='POST'>
+      <input type="submit" value="Log Out!">
+    </p>
+  </form>
+      <p>
+
     {%for pet in pets%}
+    
     <li><a href="/pets/{{pet.pet_id}}">{{pet.name}}</a></li>
     
+    
+    {%for medicine in pet.med_objects%}
+    <h1>{{ medicine.med_name}}
+      This medicine runs out on  {{medicine.date_used_by.strftime('%m-%d-%Y')}}</h1>
     {%endfor%}
-    {%for medicine in medicine%}
-    <h1>{{ medicine.med_name,  medicine.date_used_by.strftime('%m-%d-%Y')}}</h1>
     {%endfor%}
+
+    
+
+
 
 
    
