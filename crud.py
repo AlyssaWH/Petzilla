@@ -110,7 +110,7 @@ def get_pharm_by_pet_id(pet_id):
 def create_medicine(pet_id, med_name, dose_amount, days_left_at_entry, prescrip_num=None,
 doses_per_day=None, doses_per_month=None, entry_date=date.today()):
     """Create and return a new medicine entry"""
-    #dateusedby = is this the best way to calc this?
+
     date_used_by = entry_date + timedelta(days=days_left_at_entry)
     
 
@@ -129,16 +129,20 @@ doses_per_day=None, doses_per_month=None, entry_date=date.today()):
 def get_meds_by_pet_id(pet_id):
     return Medicine.query.filter(Medicine.pet_id == pet_id).all()
 
-   
+def get_med_by_id(med_id):
+    """Return a medicine by primary key."""
+
+    return Medicine.query.get(med_id)
 
 
 
-
-#I'm not totally sure if I need this right now
-def calculate_med_reminder(user, medicine):
-    reminder_date = medicine.date_used_by - timedelta(days=user.remind_time_preference)
+def calculate_med_reminder(user_id, med_id):
+    user = get_user_by_id(user_id)
+    medicine = get_med_by_id(med_id)
+    reminder_date = (medicine.date_used_by - 
+    timedelta(days=user.remind_time_preference)).strftime("%m/%d/%Y")
+    
     return reminder_date
-#     update_date_used_by = medicines.update()\.where()
                     
 
 

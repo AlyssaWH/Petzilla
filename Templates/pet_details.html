@@ -14,7 +14,9 @@
 
 {%for medicine in medicines%}
 
-<h1>Medicine Info: {{ medicine.med_name}} Used By:{{medicine.date_used_by.strftime('%m-%d-%Y')}}</h1>
+<h1>Medicine Info: {{ medicine.med_name}} 
+    Used By:{{medicine.date_used_by.strftime('%m/%d/%Y')}}
+    I'll remind you on: {{remind_time}}</h1>
 {%endfor%}
 
 {% if pharmacy %}

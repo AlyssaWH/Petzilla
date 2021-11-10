@@ -4,7 +4,7 @@ from flask import Flask
 from flask import (Flask, render_template, request, flash, session,
                    redirect)
 from model import connect_to_db
-import crud
+import crud, schedule_reminder
 from jinja2 import StrictUndefined
 
 
@@ -114,6 +114,10 @@ def show_pet(pet_id):
 
     medicines=crud.get_meds_by_pet_id(pet_id)
     pharmacy = crud.get_pharm_by_pet_id(pet_id)
+
+    for medicine in medicines:
+        remind_time = crud.calculate_med_reminder(session['user'], medicine.med_id)
+
     
 
     if session["user"]!=pet.user_id:
@@ -121,7 +125,8 @@ def show_pet(pet_id):
         return redirect ("/dashboard")
 
     else:
-        return render_template("pet_details.html", pet=pet, vet=vet, medicines=medicines, pharmacy=pharmacy)
+        return render_template("pet_details.html", pet=pet, vet=vet, medicines=medicines,
+         pharmacy=pharmacy, remind_time=remind_time)
 
 @app.route("/pets/<pet_id>/add-vet", methods=['POST'])
 def add_a_vet(pet_id):
