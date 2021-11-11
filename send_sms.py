@@ -1,7 +1,7 @@
 # Download the helper library from https://www.twilio.com/docs/python/install
 import os
 from twilio.rest import Client
-import crud
+#import crud
 from model import connect_to_db
 import schedule_reminder
 from datetime import date
@@ -9,9 +9,9 @@ import schedule
 from datetime import date, timedelta
 
 
-if __name__ == '__main__':
-    from server import app
-    connect_to_db(app)
+# if __name__ == '__main__':
+#     from server import app
+#     connect_to_db(app)
 
 
 
@@ -25,8 +25,8 @@ from_number = os.environ['from_number']
 to_number = os.environ['to_number']
 client = Client(account_sid, auth_token)
 
-pets= crud.get_pet_by_user_id(1)
-user=crud.get_user_by_id(1)
+# pets= crud.get_pet_by_user_id(1)
+# user=crud.get_user_by_id(1)
 
 # for pet in pets:
     

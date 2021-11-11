@@ -4,8 +4,9 @@ from flask import Flask
 from flask import (Flask, render_template, request, flash, session,
                    redirect)
 from model import connect_to_db
-import crud, schedule_reminder
+import crud, schedule_reminder, send_sms
 from jinja2 import StrictUndefined
+import schedule
 
 
 app = Flask(__name__)
@@ -206,5 +207,22 @@ def logout():
 
 if __name__ == "__main__":
     # DebugToolbarExtension(app)
+
+    #schedule.every(3).seconds.do(schedule_reminder.test, whatever="ugh")
+
+    
+
+    #DebugToolbarExtension(app)
+
+    
+    schedule_reminder.run_continuously(1)
+
     connect_to_db(app)
     app.run(host="0.0.0.0", debug=True)
+    #schedule_reminder.run_continuously(1)
+
+    
+  
+
+    
+    
