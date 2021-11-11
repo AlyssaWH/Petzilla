@@ -16,7 +16,7 @@
 
 <h1>Medicine Info: {{ medicine.med_name}} 
     Used By:{{medicine.date_used_by.strftime('%m/%d/%Y')}}
-    I'll remind you on: {{remind_time}}</h1>
+    I'll remind you on: {{medicine.reminder_date.strftime('%m/%d/%Y')}}</h1>
 {%endfor%}
 
 {% if pharmacy %}

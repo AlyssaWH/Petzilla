@@ -108,10 +108,13 @@ def get_pharm_by_pet_id(pet_id):
 
 
 def create_medicine(pet_id, med_name, dose_amount, days_left_at_entry, prescrip_num=None,
-doses_per_day=None, doses_per_month=None, entry_date=date.today()):
+doses_per_day=None, doses_per_month=None, reminder_date=None, entry_date=date.today()):
     """Create and return a new medicine entry"""
 
     date_used_by = entry_date + timedelta(days=days_left_at_entry)
+
+    
+
     
 
     medicine = Medicine(pet_id=pet_id, med_name=med_name, days_left_at_entry=days_left_at_entry,
@@ -136,12 +139,16 @@ def get_med_by_id(med_id):
 
 
 
-def calculate_med_reminder(user_id, med_id):
+def update_med_reminder(user_id, med_id):
     user = get_user_by_id(user_id)
     medicine = get_med_by_id(med_id)
     reminder_date = (medicine.date_used_by - 
     timedelta(days=user.remind_time_preference)).strftime("%m/%d/%Y")
     
+    medicine= get_med_by_id(med_id)
+    medicine.reminder_date = reminder_date
+    db.session.commit()
+
     return reminder_date
                     
 

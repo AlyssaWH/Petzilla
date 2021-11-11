@@ -29,4 +29,9 @@ vet1= crud.create_vet(1, 'springfield vet hospital', '1111111111', 'Vetty', "McV
 med1=crud.create_medicine(1, 'glucosamine', 500, 14, '2222', 1)
 med2=crud.create_medicine(3,"gabapentin",100,10,'33333')
 
+crud.update_med_reminder(1, med1.med_id)
+crud.update_med_reminder(1, med2.med_id)
+
+
+
 pharm1=crud.create_pharmacy(3,'rite aid','0000000000')

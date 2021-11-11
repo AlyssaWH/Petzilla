@@ -74,7 +74,6 @@ def show_dashboard():
     
     #sort pets by when the medicine runs out
     #query medicines by expiry  date and display that way
-
     
 
     return render_template("dashboard.html", user=user, pets=pets)
@@ -115,9 +114,7 @@ def show_pet(pet_id):
     medicines=crud.get_meds_by_pet_id(pet_id)
     pharmacy = crud.get_pharm_by_pet_id(pet_id)
 
-    for medicine in medicines:
-        remind_time = crud.calculate_med_reminder(session['user'], medicine.med_id)
-
+ 
     
 
     if session["user"]!=pet.user_id:
@@ -126,7 +123,7 @@ def show_pet(pet_id):
 
     else:
         return render_template("pet_details.html", pet=pet, vet=vet, medicines=medicines,
-         pharmacy=pharmacy, remind_time=remind_time)
+         pharmacy=pharmacy)
 
 @app.route("/pets/<pet_id>/add-vet", methods=['POST'])
 def add_a_vet(pet_id):
@@ -160,6 +157,7 @@ def add_a_med(pet_id):
     doses_per_day=request.form.get("doses-per-day")
     doses_per_month=request.form.get("doses-per-month")
     days_left_at_entry=request.form.get("days-left-at-entry")
+    
 
     if prescrip_num=="":
         prescrip_num=None
@@ -169,8 +167,10 @@ def add_a_med(pet_id):
         doses_per_month=None
     
 
-    crud.create_medicine(pet_id,med_name,dose_amount,int(days_left_at_entry),
+    new_med = crud.create_medicine(pet_id,med_name,dose_amount,int(days_left_at_entry),
     prescrip_num,doses_per_day,doses_per_month)
+
+    crud.update_med_reminder(user_id=session['user'], med_id=new_med.med_id)
     flash("Medicine created!  Adding to your pet's page")
     return redirect ("/dashboard")
 

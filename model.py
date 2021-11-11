@@ -124,6 +124,7 @@ class Medicine(db.Model):
     entry_date = db.Column(db.Date)
     days_left_at_entry = db.Column(db.Integer, nullable=False)
     date_used_by = db.Column(db.Date)
+    reminder_date = db.Column(db.Date)
 
     pet_objects = db.relationship('Pet', back_populates="med_objects")
 
