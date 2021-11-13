@@ -201,7 +201,35 @@ def logout():
 
     del session["user"]
     return redirect('/')
-    
+
+@app.route('/demo-text-splash')
+def show_demo_form():
+    return render_template("demo-text.html")
+
+
+
+
+@app.route('/demo-text', methods=["POST"])
+
+def send_demo_text():
+    """Lets a user put in their number and test out the texting functionality"""
+    phone=request.form.get("phone")
+    if len(phone) != 10:
+        flash("Phone number must be ten digits, try again")
+    elif "-" in phone:
+        flash("Phone should be numbers only, no dashes.  Try again")
+    else:
+        flash(f"texting {phone}")
+        new_phone = "+1"+ str(phone)
+        i_hate_this_format = "\'" +new_phone +"\'"
+        
+        #("This is an \"escape\" of a double-quote")
+        print(i_hate_this_format)
+
+        send_sms.send_demo(i_hate_this_format)
+        #this works!!!!!!  Don't touch it!
+
+    return render_template("demo-text.html")
 
      
 
@@ -219,7 +247,6 @@ if __name__ == "__main__":
 
     connect_to_db(app)
     app.run(host="0.0.0.0", debug=True)
-    #schedule_reminder.run_continuously(1)
 
     
   

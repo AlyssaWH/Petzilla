@@ -1,7 +1,7 @@
 # Download the helper library from https://www.twilio.com/docs/python/install
 import os
 from twilio.rest import Client
-#import crud
+import crud
 from model import connect_to_db
 import schedule_reminder
 from datetime import date
@@ -25,6 +25,10 @@ from_number = os.environ['from_number']
 to_number = os.environ['to_number']
 client = Client(account_sid, auth_token)
 
+#def write_text_body(body)
+
+#def send_reminder():
+
 # pets= crud.get_pet_by_user_id(1)
 # user=crud.get_user_by_id(1)
 
@@ -44,6 +48,17 @@ client = Client(account_sid, auth_token)
 
 #             print(message.sid)
 
+
+def send_demo(i_hate_this_format):
+    message = client.messages \
+                            .create(
+                                body=("Hello from Petzilla! Your pet Fluffy's medicine, Flea-B-Gone, needs a refill, and you wanted me to remind you today! Your vet's number is 555-111-2222"),
+ 
+                                from_=from_number,
+                                to=i_hate_this_format,
+                            )
+
+    print(message.sid)
 
 
 # print(f"Hey there {user.fname}")
