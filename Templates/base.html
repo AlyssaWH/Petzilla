@@ -1,6 +1,16 @@
 <!doctype html>
 <html>
   <head>
+
+
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" 
+rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" 
+crossorigin="anonymous">
+
+<link rel='stylesheet' href="/static/main.css">
+
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>
@@ -10,14 +20,27 @@
     {% block head %}{% endblock %}
   </head>
   <body>
+    <div class = "container p-3 my-3 bg-primary text-white">
+      <h1>Petzilla!</h1>
+      </div>
+      
     {% for msg in get_flashed_messages() %}
-    <p class="flash-msg">
+    <p class="flash-msg alert-primary">
       {{ msg }}
     </p>
+  
+
+  <!-- <img src="petzilla-nose.png" class="rounded float-right" alt="A dog nose">  -->
+
+    
   {% endfor %}
 
     {% block body %}{% endblock %}
 
     {% block after_body %}{% endblock %}
+
+  <!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
   </body>
 </html>

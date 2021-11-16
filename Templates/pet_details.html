@@ -7,6 +7,11 @@
 
 
 <h1>{{ pet.name }}</h1>
+{% if pet.photo %}
+<img src="{{ pet.photo }}">
+
+{% endif %}
+
 
 {% if vet %}
 <h1>Vet Info: {{ vet.fname}} {{vet.lname}} {{vet.practice_name}}</h1>
