@@ -7,13 +7,16 @@ from model import connect_to_db
 import crud, schedule_reminder, send_sms
 from jinja2 import StrictUndefined
 import schedule
+import os
+import cloudinary.uploader
 
 
 app = Flask(__name__)
 app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined
 
-
+CLOUDINARY_KEY=os.environ['cloudinary_key']
+CLOUDINARY_SECRET=os.environ['cloudinary_secret']
 
 # Replace this with routes and view functions!
 
@@ -75,9 +78,18 @@ def show_dashboard():
     
     #sort pets by when the medicine runs out
     #query medicines by expiry  date and display that way
-    
+    reminders = crud.get_sorted_meds(session["user"])
 
-    return render_template("dashboard.html", user=user, pets=pets)
+    return render_template("dashboard.html", user=user, pets=pets, reminders=reminders)
+
+# @app.route("/dashboard-petsitter/<instructions-id>") #make random string part of the URL
+# def show_dashboard_petsitter():
+#     pets= crud.get_pet_by_user_id(user_id) # foreign key is user 
+#     #get user by pet information relationship
+#     for pet in pets:
+#         instructions = crud.get_instructions_by_pet_id(pet.pet_id)
+
+#     return render_template("dashboard-petsitter.html", pets=pets, instructions=instructions)
 
 @app.route("/add-pet", methods=['POST'])
 def add_a_pet():
@@ -86,23 +98,62 @@ def add_a_pet():
     species= request.form.get("species")
     birth_year=request.form.get("birth-year")
     weight=request.form.get("weight")
-    photo=request.form.get("photo")
+    photo=request.files['photo']
 
 #if birth year is empty, set  it to none, same with weight etc.
     if birth_year=="":
         birth_year=None
     if weight=="":
         weight=None
-    if photo=="":
+    if not photo:
         photo=None
     
+    photo_result = cloudinary.uploader.upload(photo,
+   api_key=CLOUDINARY_KEY,
+   api_secret=CLOUDINARY_SECRET,
+   cloud_name='petzilla')
+
+    if photo==None:
+        img_url=None
+    else:
+        img_url = photo_result['secure_url']
+
+
+   
 
     crud.create_pet(session["user"],pet_name,species,birth_year,
-    weight,photo)
+    weight,photo=img_url)
 
    
     flash("Great!  Your pet is added!")
     return redirect ("/dashboard")
+
+@app.route("/pets/<pet_id>/edit-pet", methods=['POST'])
+def edit_pet(pet_id):
+    """Let user edit pet's weight or add a new photo"""
+    weight=request.form.get("weight")
+    photo=request.files['photo']
+
+    if weight=="":
+        weight=None
+    if not photo:
+        photo=None
+    
+    photo_result = cloudinary.uploader.upload(photo,
+   api_key=CLOUDINARY_KEY,
+   api_secret=CLOUDINARY_SECRET,
+   cloud_name='petzilla')
+
+    if photo==None:
+        img_url=None
+    else:
+        img_url = photo_result['secure_url']
+
+    crud.edit_pet(pet_id,weight,photo=img_url)
+    flash("Edited pet info!")
+    return redirect("/dashboard")
+
+
 
 @app.route("/pets/<pet_id>")
 def show_pet(pet_id):
@@ -231,7 +282,7 @@ def send_demo_text():
 
     return render_template("demo-text.html")
 
-     
+    
 
 if __name__ == "__main__":
     # DebugToolbarExtension(app)

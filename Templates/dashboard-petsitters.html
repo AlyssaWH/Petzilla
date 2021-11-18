@@ -2,7 +2,7 @@
 {% block title %}Petzilla - Add Your Pets{% endblock %}
 
 {% block body %}
-  <h1>Welcome to Petzilla, {{user.fname}}!!</h1>
+  <h1>Welcome to Petzilla!  This is  {{user.fname}}'s Pet-Sitter Page</h1>
 
   <h2>Navigation</h2>
   
@@ -50,64 +50,22 @@
     
           {%for medicine in pet.med_objects%}
           <h1>{{ medicine.med_name}}
-          This medicine runs out on  {{medicine.date_used_by.strftime('%m-%d-%Y')}}</h1>
+           {{medicine.prescrip-num)}}</h1>
+           {{medicine.doses_per_day)}}</h1>
+           
+
         
      {%endfor%}
     {%endfor%}
     </div>
   </nav> 
 
-  <h2>Add Notes for a Pet Sitter</h2>
-  {%for pet in pets%}
-  <div>
-    This form is for {{pet.name}}
-
-   Add your notes for {{pet.name}} here:
-
-   <form id="order-form">
-     <div class="notes">
-       <label>Notes
-         <input type="text" name="notes" id="notes-field">
-       </label>
-     </div>
- 
-     <div class="submit">
-      <button type="submit" id="notes-button" class="btn btn-primary">Submit notes</button>
-    </div>
-
-{%endfor%}
+    
 
 
 
 
 
-   
-
-
-  <h2>Add a Pet to Your Account</h2>
-  <form class="form-inline"  action="/add-pet" method='POST' enctype=multipart/form-data>
-    <p>
-      Your Pet's Name <input type="text" name="pet-name">
-    </p>
-
-    <p>
-      Species <input type="text" name="species">
-    </p>
-
-    <p>
-        Birth Year (optional) <input type="integer" name="birth-year">
-      </p>
-      <p>
-        Weight in pounds (optional) <input type="integer" name="weight">
-      </p>
-      <p>
-        Upload your pet's photo! <input type="file" name="photo">
-      </p>
-   
-    <p>
-      <input type="submit" class="btn btn-info" value="Add your Pet!">
-    </p>
-  </form>
   
 
 

@@ -28,6 +28,20 @@
 <h1>Pharmacy Info: {{ pharmacy.pharm_name}} {{pharmacy.phone}}</h1>
 {% endif %}
 
+What would you like to do?<h2>Edit this Pet's Info</h2>
+<form class="form-inline"  action="/pets/{{pet.pet_id}}/edit-pet" method='POST'
+  enctype=multipart/form-data>
+ 
+      Weight in pounds (optional) <input type="integer" name="weight">
+    </p>
+    <p>
+      Upload your pet's photo! <input type="file" name="photo">
+    </p>
+ 
+  <p>
+    <input type="submit" class="btn btn-info" value="Edit your Pet's Info!">
+  </p>
+</form>
 
 What would you like to do?<h2>Add a Vet for Your Pet</h2>
 <form action="/pets/{{pet.pet_id}}/add-vet" method='POST'>

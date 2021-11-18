@@ -5,6 +5,7 @@ Data Model Classes
 """
 
 from flask_sqlalchemy import SQLAlchemy
+import uuid
 
 db = SQLAlchemy()
 
@@ -20,6 +21,8 @@ class User(db.Model):
     password = db.Column(db.String(25), nullable=False)
     contact_preference = db.Column(db.String(10), nullable=False)
     remind_time_preference = db.Column(db.Integer, nullable=False)
+
+
 
     #assoc_objects = db.relationship('PetxUser', back_populates="user_objects")
 
@@ -54,6 +57,7 @@ class Pet(db.Model):
     #assoc_objects = db.relationship('PetxUser', back_populates="pet_objects")
 
     owners = db.relationship("User", secondary="pets_users", backref="pets")
+
     #mozilla = Pet(user_id=1, name="Mozilla", animal_species='dog', birth_year='2010', weight=60)
 
 
@@ -77,6 +81,8 @@ class PetxUser(db.Model):
    
     # user_objects = db.relationship('User', back_populates="assoc_objects")
     # pet_objects = db.relationship('Pet', back_populates="assoc_objects")
+    instructions_objects = db.relationship('PetSitterInstructions', back_populates="pet_user_objects")
+
 
     def __repr__(self):
         """Show info about pet."""
@@ -127,6 +133,19 @@ class Medicine(db.Model):
     reminder_date = db.Column(db.Date)
 
     pet_objects = db.relationship('Pet', back_populates="med_objects")
+
+
+
+class PetSitterInstructions(db.Model):
+    """Data model for storing information for a pet sitter."""
+    __tablename__ = "instructions"
+    instructions_id = db.Column(db.String(100), primary_key=True, nullable=False)
+
+    pet_user_assoc_id = db.Column(db.Integer, db.ForeignKey('pets_users.pet_user_assoc_id'), nullable=False)
+
+    notes = db.Column(db.String(5000))
+
+    pet_user_objects = db.relationship('PetxUser', back_populates="instructions_objects")
 
 
 

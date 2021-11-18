@@ -1,7 +1,8 @@
 """CRUD operations."""
 
-from model import db, User, Pet, PetxUser, Medicine, Pharmacy, Vet, connect_to_db
+from model import PetSitterInstructions, db, User, Pet, PetxUser, Medicine, Pharmacy, Vet, connect_to_db
 from datetime import date, timedelta
+import uuid
 
 if __name__ == '__main__':
     from server import app
@@ -50,6 +51,16 @@ def create_pet(user_id, name, animal_species, birth_year=None, weight=None,
 
     return pet
 
+def edit_pet(pet_id, weight, photo):
+    """Allow user to update pet information"""
+    pet= get_pet_by_id(pet_id)
+
+    pet.weight = weight
+    pet.photo = photo
+    db.session.commit()
+    return pet
+
+
 def get_pet_by_id(pet_id):
     """Return a user by primary key."""
 
@@ -86,7 +97,12 @@ def get_vet_by_pet_id(pet_id):
     #(Vet.query.filter(Pet.pet_id == pet_id))
     return Vet.query.filter(Vet.pet_id == pet_id).first()
 
-    
+def delete_vet(pet_id):
+    """delete vet based on a pet id"""
+    vet = get_vet_by_pet_id(pet_id)
+    db.session.delete(vet)
+    db.session.commit()
+
 
 
 def create_pharmacy(pet_id, pharm_name, phone,  
@@ -150,6 +166,38 @@ def update_med_reminder(user_id, med_id):
     db.session.commit()
 
     return reminder_date
+
+def get_sorted_meds(user_id): #list of lists, sort by first element, doesn't matter if there
+    #are multiple same dates
+
+    med_dict= {}
+    for pet in get_pet_by_user_id(user_id):
+        for med in pet.med_objects:
+            if med.reminder_date in med_dict:
+                med_dict[med.reminder_date].append((pet.name, med.med_name))
+            else:
+                med_dict[med.reminder_date.strftime("%m/%d/%Y")] = pet.name, med.med_name
+            
+    # print(med_dict.keys())
+    return sorted(med_dict.items()) # this is a list
+
+def create_instructions(pet_user_assoc_id):
+    """Create instructions for pet sitter"""
+    #Make randomized string  as the primary key for the class
+    instructions_id = uuid.uuid4()
+    
+    notes= "blah"
+    instruction = PetSitterInstructions(instructions_id= instructions_id, 
+    pet_user_assoc_id=pet_user_assoc_id, notes=notes)
+    db.session.add(instruction)
+    db.session.commit()
+    
+    return instruction, instructions_id
+
+def get_instructions_by_pet_id(pet_user_assoc_id):
+    return PetSitterInstructions.query.filter(PetSitterInstructions.pet_user_assoc_id == pet_user_assoc_id).all()
+
+
                     
 
 
