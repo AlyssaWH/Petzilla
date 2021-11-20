@@ -2,71 +2,7 @@
 {% block title %}Petzilla - Add Your Pets{% endblock %}
 
 {% block body %}
-  <h1>Welcome to Petzilla!  This is  {{user.fname}}'s Pet-Sitter Page</h1>
-
-  <h2>Navigation</h2>
+HELLO THIS IS DASHBOARD
   
-    <!-- <li><a href="/settings">View all settings</a></li>
-    <li><a href="/pets">View my pet pages</a></li> -->
-    <h2>Log Out</h2>
-    <form action="/logout" method='POST'>
-      <input type="submit" class="btn btn-warning" value="Log Out!">
-    
-    </form>
-      <p>
-
-       <!-- A vertical navbar -->
-<nav class="nav flex-column">
-
-  <!-- Links -->
-  <!-- <ul class="btn-group-vertical">
-    <li class="nav-item">
-      <a class="nav-link" href="#">Link 1</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Link 2</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Link 3</a>
-    </li>
-  </ul> -->
-
-
-        
-          <!-- <button type="button" class="btn btn-primary">Apple</button>
-          <button type="button" class="btn btn-primary">Samsung</button>
-          <button type="button" class="btn btn-primary">Sony</button>
-        </div>  -->
-        {%for reminder in reminders%}
-
-        {{reminder[0]}} {{reminder[1][0]}} {{reminder[1][1]}}
-        {%endfor%}
-
-
-          {%for pet in pets%}
-        <div>
-          <a href="/pets/{{pet.pet_id}}" class="btn btn-info btn-lg nav-link" role="button"> {{pet.name}}</a>
-    
-    
-          {%for medicine in pet.med_objects%}
-          <h1>{{ medicine.med_name}}
-           {{medicine.prescrip-num)}}</h1>
-           {{medicine.doses_per_day)}}</h1>
-           
-
-        
-     {%endfor%}
-    {%endfor%}
-    </div>
-  </nav> 
-
-    
-
-
-
-
-
-  
-
 
 {% endblock %}

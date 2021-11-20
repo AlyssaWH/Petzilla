@@ -64,7 +64,8 @@
 
    Add your notes for {{pet.name}} here:
 
-   <form id="order-form">
+   <form id="order-form" action="/make-instructions">
+    <input type="hidden" id="user" name="user" value="{{user.user_id}}">
      <div class="notes">
        <label>Notes
          <input type="text" name="notes" id="notes-field">

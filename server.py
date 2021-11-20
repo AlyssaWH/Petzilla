@@ -3,7 +3,7 @@
 from flask import Flask
 from flask import (Flask, render_template, request, flash, session,
                    redirect)
-from model import connect_to_db
+from model import PetSitterInstructions, connect_to_db
 import crud, schedule_reminder, send_sms
 from jinja2 import StrictUndefined
 import schedule
@@ -82,14 +82,23 @@ def show_dashboard():
 
     return render_template("dashboard.html", user=user, pets=pets, reminders=reminders)
 
-# @app.route("/dashboard-petsitter/<instructions-id>") #make random string part of the URL
-# def show_dashboard_petsitter():
-#     pets= crud.get_pet_by_user_id(user_id) # foreign key is user 
-#     #get user by pet information relationship
-#     for pet in pets:
-#         instructions = crud.get_instructions_by_pet_id(pet.pet_id)
+#needs a route that processes and creates the instructions ID
+@app.route("/make-instructions")
+def make_instructions():
+    notes = request.form.get("notes")
 
-#     return render_template("dashboard-petsitter.html", pets=pets, instructions=instructions)
+    new_instructions = crud.create_instructions(session['user'], notes=notes)
+    flash(f"We created a unique link for you to share. Here it is! {str(new_instructions.instructions_id)}")
+    return redirect (f"/dashboard-petsitter/{new_instructions.instructions_id}")
+
+
+@app.route("/dashboard-petsitter/<unique_id>") #make random string part of the URL
+def show_dashboard_petsitter(unique_id):
+   
+    new_instructions= PetSitterInstructions.query.filter(PetSitterInstructions.instructions_id== unique_id)
+
+    return render_template("dashboard-petsitters.html", new_instructions=new_instructions)
+    
 
 @app.route("/add-pet", methods=['POST'])
 def add_a_pet():

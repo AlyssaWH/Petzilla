@@ -181,21 +181,22 @@ def get_sorted_meds(user_id): #list of lists, sort by first element, doesn't mat
     # print(med_dict.keys())
     return sorted(med_dict.items()) # this is a list
 
-def create_instructions(pet_user_assoc_id):
+def create_instructions(user_id, notes=""):
     """Create instructions for pet sitter"""
     #Make randomized string  as the primary key for the class
     instructions_id = uuid.uuid4()
     
-    notes= "blah"
-    instruction = PetSitterInstructions(instructions_id= instructions_id, 
-    pet_user_assoc_id=pet_user_assoc_id, notes=notes)
+    
+    instruction = PetSitterInstructions(instructions_id= str(instructions_id),
+    user_id=user_id, notes=notes)
     db.session.add(instruction)
     db.session.commit()
     
-    return instruction, instructions_id
+    return instruction
 
-def get_instructions_by_pet_id(pet_user_assoc_id):
-    return PetSitterInstructions.query.filter(PetSitterInstructions.pet_user_assoc_id == pet_user_assoc_id).all()
+# def get_instructions_by_user_id(user_id):
+#     return PetSitterInstructions.query.filter(PetSitterInstructions.user_id == user_id).all()
+
 
 
                     

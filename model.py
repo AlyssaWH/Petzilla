@@ -25,8 +25,9 @@ class User(db.Model):
 
 
     #assoc_objects = db.relationship('PetxUser', back_populates="user_objects")
+    instructions_objects = db.relationship('PetSitterInstructions', back_populates="user_objects")
 
-#alyssa= User(fname="Alyssa", lname="WH", email="test@test.com", phone='1234567891', password='fake', contact_preference="phone", remind_time_preference='7')
+
 
 
     def __repr__(self):
@@ -81,7 +82,6 @@ class PetxUser(db.Model):
    
     # user_objects = db.relationship('User', back_populates="assoc_objects")
     # pet_objects = db.relationship('Pet', back_populates="assoc_objects")
-    instructions_objects = db.relationship('PetSitterInstructions', back_populates="pet_user_objects")
 
 
     def __repr__(self):
@@ -141,11 +141,11 @@ class PetSitterInstructions(db.Model):
     __tablename__ = "instructions"
     instructions_id = db.Column(db.String(100), primary_key=True, nullable=False)
 
-    pet_user_assoc_id = db.Column(db.Integer, db.ForeignKey('pets_users.pet_user_assoc_id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
 
     notes = db.Column(db.String(5000))
 
-    pet_user_objects = db.relationship('PetxUser', back_populates="instructions_objects")
+    user_objects = db.relationship('User', back_populates="instructions_objects")
 
 
 
