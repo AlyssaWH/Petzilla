@@ -29,7 +29,7 @@
 {% endif %}
 
 What would you like to do?<h2>Edit this Pet's Info</h2>
-<form class="form-inline"  action="/pets/{{pet.pet_id}}/edit-pet" method='POST'
+<form class="form-inline edit-form"  action="/pets/{{pet.pet_id}}/edit-pet" method='POST'
   enctype=multipart/form-data>
  
       Weight in pounds (optional) <input type="integer" name="weight">
@@ -107,8 +107,11 @@ Add a medicine
 
 Add pharmacy info
 
+
+
 <h2>Add a Pharmacy for Your Pet</h2>
-<form action="/pets/{{pet.pet_id}}/add-pharm" method='POST'>
+<form class="add-pharm" method="post" action="/pets/{{pet.pet_id}}">
+<!-- add-pharm"> -->
   <input type="hidden" id="pet_id" name="pet_id" value={{pet.pet_id}}>
   <p>
     Pharmacy Name <input type="text" name="pharm-name">
@@ -127,6 +130,10 @@ Add pharmacy info
     <input type="submit" value="Add your Pet's Pharmacy!">
   </p>
 </form>
+<script src="/static/testjs.js"></script>
+
+
+
 
 
 

@@ -38,8 +38,11 @@
           <button type="button" class="btn btn-primary">Sony</button>
         </div>  -->
         {%for reminder in reminders%}
-
-        {{reminder[0]}} {{reminder[1][0]}} {{reminder[1][1]}}
+        Reorder by
+        {{reminder[0]}} for
+        {{reminder[1][0]}} :
+        {{reminder[1][1]}}!
+        <br>
         {%endfor%}
 
 
@@ -47,8 +50,9 @@
         <div>
           <a href="/pets/{{pet.pet_id}}" class="btn btn-info btn-lg nav-link" role="button"> {{pet.name}}</a>
     
-    
+          {{pet.name}}'s Medicines:
           {%for medicine in pet.med_objects%}
+         
           <h1>{{ medicine.med_name}}
           This medicine runs out on  {{medicine.date_used_by.strftime('%m-%d-%Y')}}</h1>
         
@@ -66,20 +70,23 @@
 
    <form id="order-form" action="/make-instructions">
     <input type="hidden" id="user" name="user" value="{{user.user_id}}">
-     <div class="notes">
+    <input type="hidden" id="pet" name="pet" value="{{pet.pet_id}}">
+
+    <div class="notes">
        <label>Notes
-         <input type="text" name="notes" id="notes-field">
+         <input type="textarea" name="notes" id="notes-field">
        </label>
      </div>
  
-     <div class="submit">
-      <button type="submit" id="notes-button" class="btn btn-primary">Submit notes</button>
-    </div>
+  
 
 {%endfor%}
 
 
-
+<div class="submit">
+  <button type="submit" id="notes-button" class="btn btn-primary">Submit notes</button>
+</form>
+</div>
 
 
    

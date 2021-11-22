@@ -194,8 +194,16 @@ def create_instructions(user_id, notes=""):
     
     return instruction
 
-# def get_instructions_by_user_id(user_id):
-#     return PetSitterInstructions.query.filter(PetSitterInstructions.user_id == user_id).all()
+def get_instructions_by_user_id(user_id):
+    return PetSitterInstructions.query.filter(PetSitterInstructions.user_id == user_id).first()
+
+def check_unique_id(unique_id):
+    if PetSitterInstructions.query.filter(PetSitterInstructions.instructions_id== unique_id):
+    #reminding myself what a huge pain this was because this is  a basequery object
+        return PetSitterInstructions.query.get(unique_id)
+        
+    else:
+        return None
 
 
 

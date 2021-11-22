@@ -71,7 +71,7 @@ def user_login():
     
         return redirect("/")
 
-@app.route("/dashboard")
+@app.route("/dashboard")  
 def show_dashboard():
     user=crud.get_user_by_id(session["user"])
     pets=crud.get_pet_by_user_id(session["user"])
@@ -85,19 +85,25 @@ def show_dashboard():
 #needs a route that processes and creates the instructions ID
 @app.route("/make-instructions")
 def make_instructions():
-    notes = request.form.get("notes")
+    if crud.get_instructions_by_user_id(session['user']):
+        flash ("You already have a unique link for your instructions")
+        return redirect("/dashboard")
+    else:
+        notes = request.form.get("notes")
 
-    new_instructions = crud.create_instructions(session['user'], notes=notes)
-    flash(f"We created a unique link for you to share. Here it is! {str(new_instructions.instructions_id)}")
-    return redirect (f"/dashboard-petsitter/{new_instructions.instructions_id}")
+        new_instructions = crud.create_instructions(session['user'], notes=notes)
+        flash(f"We created a unique link for you to share. Here it is! {str(new_instructions.instructions_id)}")
+        return redirect (f"/dashboard-petsitter/{new_instructions.instructions_id}")
 
 
 @app.route("/dashboard-petsitter/<unique_id>") #make random string part of the URL
 def show_dashboard_petsitter(unique_id):
+#this took hours off my life and well being!!!!
    
-    new_instructions= PetSitterInstructions.query.filter(PetSitterInstructions.instructions_id== unique_id)
-
-    return render_template("dashboard-petsitters.html", new_instructions=new_instructions)
+    instructions =  crud.check_unique_id(unique_id)
+    userid = instructions.user_id
+    pets = crud.get_pet_by_user_id(userid)
+    return render_template("dashboard-petsitters.html", instructions=instructions, pets=pets)
     
 
 @app.route("/add-pet", methods=['POST'])
@@ -114,18 +120,19 @@ def add_a_pet():
         birth_year=None
     if weight=="":
         weight=None
-    if not photo:
-        photo=None
     
-    photo_result = cloudinary.uploader.upload(photo,
-   api_key=CLOUDINARY_KEY,
-   api_secret=CLOUDINARY_SECRET,
-   cloud_name='petzilla')
+    if photo:
+        photo_result = cloudinary.uploader.upload(photo,
+        api_key=CLOUDINARY_KEY,
+        api_secret=CLOUDINARY_SECRET,
+        cloud_name='petzilla')
 
-    if photo==None:
-        img_url=None
-    else:
+    # if photo==None:
+    #     img_url=None
+    # else:
         img_url = photo_result['secure_url']
+    else:
+        img_url=None
 
 
    
@@ -145,18 +152,20 @@ def edit_pet(pet_id):
 
     if weight=="":
         weight=None
-    if not photo:
-        photo=None
     
-    photo_result = cloudinary.uploader.upload(photo,
-   api_key=CLOUDINARY_KEY,
-   api_secret=CLOUDINARY_SECRET,
-   cloud_name='petzilla')
+   
+    if photo:
+        photo_result = cloudinary.uploader.upload(photo,
+        api_key=CLOUDINARY_KEY,
+        api_secret=CLOUDINARY_SECRET,
+        cloud_name='petzilla')
 
-    if photo==None:
-        img_url=None
-    else:
+    # if photo==None:
+    #     img_url=None
+    # else:
         img_url = photo_result['secure_url']
+    else:
+        img_url=None
 
     crud.edit_pet(pet_id,weight,photo=img_url)
     flash("Edited pet info!")
@@ -164,7 +173,7 @@ def edit_pet(pet_id):
 
 
 
-@app.route("/pets/<pet_id>")
+@app.route("/pets/<pet_id>") #methods=['POST']
 def show_pet(pet_id):
     """Show details on a particular pet."""
 
@@ -236,7 +245,8 @@ def add_a_med(pet_id):
     return redirect ("/dashboard")
 
 
-@app.route("/pets/<pet_id>/add-pharm", methods=['POST'])
+@app.route("/pets/<pet_id>", methods=['POST'])
+#/add-pharm
 def add_a_pharmacy(pet_id):
     """Let user add a pharmacy for a pet"""
 
@@ -251,7 +261,20 @@ def add_a_pharmacy(pet_id):
 
     crud.create_pharmacy(pet_id,pharm_name,phone)
     flash("Pharmacy created!  Adding to your pet's page")
+    
     return redirect ("/dashboard")
+   # ("Pharmacy created!  Adding to your pet's page")
+
+# @app.route("/new-order", methods=["POST"])
+# def add_order():
+#     """Add a melon order to our database."""
+
+#     melon_type = request.form.get("type")
+#     amount = request.form.get("amount")
+
+#     return "Your order has been confirmed"
+
+
 
 
 @app.route('/logout', methods=["POST"])

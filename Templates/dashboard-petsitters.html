@@ -3,6 +3,18 @@
 
 {% block body %}
 HELLO THIS IS DASHBOARD
+
+ {%for pet in pets%}
+<h1>{{ pet.name }}</h1>
+{% if pet.photo %}
+<img src="{{ pet.photo }}">
+
+{% endif %}
+
+
+{%endfor%}
+
   
 
-{% endblock %}
+
+{% endblock %} -->

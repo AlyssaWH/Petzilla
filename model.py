@@ -147,6 +147,10 @@ class PetSitterInstructions(db.Model):
 
     user_objects = db.relationship('User', back_populates="instructions_objects")
 
+    def __repr__(self):
+        """Show info about pet."""
+
+        return f"<Instructions ={self.instructions_id}  Notes: {self.notes}>"
 
 
 def connect_to_db(app):
