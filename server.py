@@ -26,7 +26,7 @@ def homepage():
 
     return render_template('homepage.html')
 
-@app.route("/users", methods=["POST"])
+@app.route("/users", methods=['GET', "POST"])
 def register_user():
     """Create a new user"""
     email = request.form.get("email")
@@ -83,15 +83,19 @@ def show_dashboard():
     return render_template("dashboard.html", user=user, pets=pets, reminders=reminders)
 
 #needs a route that processes and creates the instructions ID
-@app.route("/make-instructions")
+@app.route("/make-instructions", methods=['POST'])
 def make_instructions():
-    if crud.get_instructions_by_user_id(session['user']):
-        flash ("You already have a unique link for your instructions")
-        return redirect("/dashboard")
-    else:
-        notes = request.form.get("notes")
+    # if crud.get_instructions_by_user_id(session['user']):
+    #     flash ("You already have a unique link for your instructions")
+    #     return redirect("/dashboard")
+    # else:
+        notes = request.form.getlist('notes') #how do I get all the items out of notes? flask receive a list of requests in a post  request
+        print(notes)
+        #notes_list = append all the notes to a list, pass the list to line 96??
+        #why is  notes not passing in correctly?
 
-        new_instructions = crud.create_instructions(session['user'], notes=notes)
+        new_instructions = crud.create_instructions(session['user'], notes)
+        print(new_instructions)
         flash(f"We created a unique link for you to share. Here it is! {str(new_instructions.instructions_id)}")
         return redirect (f"/dashboard-petsitter/{new_instructions.instructions_id}")
 
@@ -262,7 +266,8 @@ def add_a_pharmacy(pet_id):
     crud.create_pharmacy(pet_id,pharm_name,phone)
     flash("Pharmacy created!  Adding to your pet's page")
     
-    return redirect ("/dashboard")
+    return "OK"
+    #redirect ("/dashboard")
    # ("Pharmacy created!  Adding to your pet's page")
 
 # @app.route("/new-order", methods=["POST"])

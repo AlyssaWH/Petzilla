@@ -62,21 +62,21 @@
   </nav> 
 
   <h2>Add Notes for a Pet Sitter</h2>
+  <form id="order-form" action="/make-instructions" method='POST'>
   {%for pet in pets%}
-  <div>
+  
     This form is for {{pet.name}}
 
    Add your notes for {{pet.name}} here:
 
-   <form id="order-form" action="/make-instructions">
     <input type="hidden" id="user" name="user" value="{{user.user_id}}">
     <input type="hidden" id="pet" name="pet" value="{{pet.pet_id}}">
 
-    <div class="notes">
+    
        <label>Notes
-         <input type="textarea" name="notes" id="notes-field">
+         <input type="text" name="notes" id="notes-field-{{pet.name}}">
        </label>
-     </div>
+   
  
   
 
@@ -85,8 +85,8 @@
 
 <div class="submit">
   <button type="submit" id="notes-button" class="btn btn-primary">Submit notes</button>
-</form>
 </div>
+</form>
 
 
    
