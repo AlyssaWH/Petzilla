@@ -11,6 +11,21 @@ HELLO THIS IS DASHBOARD
 
 {% endif %}
 
+{% for vet in pet.vet_objects%}
+<h1>Vet Info: {{ vet.fname}} {{vet.lname}} {{vet.practice_name}}</h1>
+{% endfor %}
+
+{%for medicine in pet.med_objects%}
+
+<h1>Medicine Info: {{ medicine.med_name}} 
+    Used By:{{medicine.date_used_by.strftime('%m/%d/%Y')}}
+    I'll remind you on: {{medicine.reminder_date.strftime('%m/%d/%Y')}}</h1>
+{%endfor%}
+
+{% for pharmacy in pet.pharm_objects %}
+<h1 class="pharm">Pharmacy Info: {{ pharmacy.pharm_name}} {{pharmacy.phone}}</h1>
+{% endfor %}
+
 
 {%endfor%}
 {{instructions}}

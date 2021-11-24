@@ -167,8 +167,29 @@ def update_med_reminder(user_id, med_id):
 
     return reminder_date
 
+def update_date_usedby(user_id, med_id, days_left_at_entry):
+    # user = get_user_by_id(user_id)
+    # medicine = get_med_by_id(med_id)
+    
+    entry_date= date.today()
+    date_used_by = entry_date + timedelta(days=days_left_at_entry)
+
+    
+    medicine= get_med_by_id(med_id)
+    medicine.days_left_at_entry = days_left_at_entry
+    medicine.entry_date=entry_date
+    medicine.date_used_by = date_used_by
+    medicine.reminder_date = update_med_reminder(user_id, med_id)
+
+    db.session.commit()
+    return date_used_by
+
 def get_sorted_meds(user_id): #list of lists, sort by first element, doesn't matter if there
     #are multiple same dates
+
+#      actually, since you're sorting by the first element in each sublist, you don't need a custom sorted function at all, you can just use regular sorted()
+# turns out that by default, when you're sorting a list of lists, it will sort by the first element in each one
+# so that will make it a lot easier
 
     med_dict= {}
     for pet in get_pet_by_user_id(user_id):
@@ -176,10 +197,26 @@ def get_sorted_meds(user_id): #list of lists, sort by first element, doesn't mat
             if med.reminder_date in med_dict:
                 med_dict[med.reminder_date].append((pet.name, med.med_name))
             else:
-                med_dict[med.reminder_date.strftime("%m/%d/%Y")] = pet.name, med.med_name
-            
+                med_dict[med.reminder_date.strftime("%Y/%m/%d")] = pet.name, med.med_name
+                #med_dict[med.reminder_date] = pet.name, med.med_name
+
     # print(med_dict.keys())
     return sorted(med_dict.items()) # this is a list
+
+
+def get_sorted_meds2(user_id): #list of lists, sort by first element, doesn't matter if there
+    #are multiple same dates
+
+#      actually, since you're sorting by the first element in each sublist, you don't need a custom sorted function at all, you can just use regular sorted()
+# turns out that by default, when you're sorting a list of lists, it will sort by the first element in each one
+# so that will make it a lot easier
+
+    med_list= []
+    for pet in get_pet_by_user_id(user_id):
+        for med in pet.med_objects:
+            med_list.append([med.reminder_date, pet.name, med.med_name])
+               
+    return sorted(med_list)
 
 def create_instructions(user_id, notes):
     """Create instructions for pet sitter"""

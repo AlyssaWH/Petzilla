@@ -78,9 +78,26 @@ def show_dashboard():
     
     #sort pets by when the medicine runs out
     #query medicines by expiry  date and display that way
-    reminders = crud.get_sorted_meds(session["user"])
+    reminders = crud.get_sorted_meds2(session["user"])
 
     return render_template("dashboard.html", user=user, pets=pets, reminders=reminders)
+
+#new route for update medicine information
+#take in form that probably just has new number of days of meds left
+#and then, call the crud update function and probably return to dashboard
+@app.route("/update-medicine", methods=['POST'])
+def update_medicine():
+        user=crud.get_user_by_id(session["user"])
+        med_id = request.form.get('med')
+        print(med_id)
+
+        update= int(request.form.get('update'))
+        print(update)
+        crud.update_date_usedby(session['user'], med_id, update)
+
+        return "Ok"
+
+
 
 #needs a route that processes and creates the instructions ID
 @app.route("/make-instructions", methods=['POST'])
@@ -107,7 +124,18 @@ def show_dashboard_petsitter(unique_id):
     instructions =  crud.check_unique_id(unique_id)
     userid = instructions.user_id
     pets = crud.get_pet_by_user_id(userid)
-    return render_template("dashboard-petsitters.html", instructions=instructions, pets=pets)
+    for pet in pets:
+        vet= crud.get_vet_by_pet_id(pet.pet_id)
+
+        medicines=crud.get_meds_by_pet_id(pet.pet_id)
+        pharmacy = crud.get_pharm_by_pet_id(pet.pet_id)
+
+ 
+    
+
+   
+    return render_template("dashboard-petsitters.html", instructions=instructions, pets=pets, 
+    vet=vet, medicines=medicines, pharmacy=pharmacy)
     
 
 @app.route("/add-pet", methods=['POST'])
@@ -332,6 +360,7 @@ if __name__ == "__main__":
 
     
     schedule_reminder.run_continuously(1)
+    #I uncommented this at 2:38 pm
 
     connect_to_db(app)
     app.run(host="0.0.0.0", debug=True)

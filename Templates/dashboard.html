@@ -39,9 +39,15 @@
         </div>  -->
         {%for reminder in reminders%}
         Reorder by
-        {{reminder[0]}} for
+
+        {{reminder[0].strftime('%m-%d-%Y')}} 
+        {{reminder[1]}} 
+        {{reminder[2]}} 
+
+
+        <!-- {{reminder[0]}} for
         {{reminder[1][0]}} :
-        {{reminder[1][1]}}!
+        {{reminder[1][1]}}! -->
         <br>
         {%endfor%}
 
@@ -55,6 +61,21 @@
          
           <h1>{{ medicine.med_name}}
           This medicine runs out on  {{medicine.date_used_by.strftime('%m-%d-%Y')}}</h1>
+          Update this medicine?
+          <form id="update-medicine" action="/update-medicine" method='POST'>
+            
+              <input type="hidden" id="med" name="med" value="{{medicine.med_id}}">
+              <input type="hidden" id="pet" name="pet" value="{{pet.pet_id}}">
+          
+              
+                 <label>Enter how many days of this medicine you have as of today:
+                   <input type="number" name="update" id="update-med">
+                 </label>
+
+                 <div class="submit">
+                  <button type="submit" id="update-med-button" class="btn btn-primary">Update my reminder date</button>
+                </div>
+                </form>
         
      {%endfor%}
     {%endfor%}
