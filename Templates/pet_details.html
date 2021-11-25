@@ -24,9 +24,14 @@
     I'll remind you on: {{medicine.reminder_date.strftime('%m/%d/%Y')}}</h1>
 {%endfor%}
 
+<div class="pharm">
+
+</div>
+
 {% if pharmacy %}
-<h1 class="pharm">Pharmacy Info: {{ pharmacy.pharm_name}} {{pharmacy.phone}}</h1>
-{% endif %}
+<h1> Pharmacy Info: {{ pharmacy.pharm_name}} {{pharmacy.phone}}</h1> 
+
+ {% endif %}
 
 What would you like to do?<h2>Edit this Pet's Info</h2>
 <form class="form-inline edit-form"  action="/pets/{{pet.pet_id}}/edit-pet" method='POST'

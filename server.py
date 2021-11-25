@@ -95,7 +95,8 @@ def update_medicine():
         print(update)
         crud.update_date_usedby(session['user'], med_id, update)
 
-        return "Ok"
+        flash("Reminder date updated!")
+        return redirect ("/dashboard")
 
 
 
@@ -294,7 +295,7 @@ def add_a_pharmacy(pet_id):
     crud.create_pharmacy(pet_id,pharm_name,phone)
     flash("Pharmacy created!  Adding to your pet's page")
     
-    return "OK"
+    return pharm_name
     #redirect ("/dashboard")
    # ("Pharmacy created!  Adding to your pet's page")
 

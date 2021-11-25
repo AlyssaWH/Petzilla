@@ -218,6 +218,11 @@ def get_sorted_meds2(user_id): #list of lists, sort by first element, doesn't ma
                
     return sorted(med_list)
 
+def get_todays_meds():
+        return Medicine.query.filter(Medicine.reminder_date == date.today()).all()
+
+
+
 def create_instructions(user_id, notes):
     """Create instructions for pet sitter"""
     #Make randomized string  as the primary key for the class
