@@ -3,6 +3,7 @@ import time
 #import crud
 import schedule
 import threading
+import send_sms
 
 
 
@@ -10,11 +11,11 @@ import threading
 
 from datetime import date, timedelta
 
+#This code is mostly taken from the example given in the schedule library's docs:
+#https://schedule.readthedocs.io/en/stable/background-execution.html
 
-def test(whatever):
-    
-    
-    print(whatever)
+
+
     
 
 # Run job every 3 second/minute/hour/day/week,
@@ -41,11 +42,7 @@ def test(whatever):
 
     
 
-# add this code to dundermain in the serverpage - done
-# change time to 5min, see if the server picks it up
-# Create a route that's a mockup of the text function - demo how it works
-# take random med from the db and set up a test time function - click event 
-# have a phone number to put in 
+
 
 def run_continuously(interval=1):
     """Continuously run, while executing pending jobs at each
@@ -73,10 +70,11 @@ def run_continuously(interval=1):
 
 
 def background_job():
-    print('Hello from the background thread')
+    print('Hello from the background threaaad Im checking if you need a teeeext')
+    send_sms.send_reminder()
 
-
-schedule.every().second.do(background_job)
+schedule.every(1).minutes.do(background_job)
+#schedule.every(1).hours.at("09:53").do(background_job)
 
 # Start the background thread
 stop_run_continuously = run_continuously()
