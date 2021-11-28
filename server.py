@@ -207,7 +207,9 @@ def edit_pet(pet_id):
 
     crud.edit_pet(pet_id,weight,photo=img_url)
     flash("Edited pet info!")
-    return redirect("/dashboard")
+    return redirect(f"/pets/{pet_id}")
+
+    #return redirect("/dashboard")
 
 
 

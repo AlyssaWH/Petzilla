@@ -125,7 +125,7 @@
 
 
   <h2>Add a Pet to Your Account</h2>
-  <form class="form-inline"  action="/add-pet" method='POST' enctype=multipart/form-data>
+  <form class="form-inline add-pet"   action="/add-pet" method='POST' enctype=multipart/form-data>
     <p>
       Your Pet's Name <input type="text" name="pet-name">
     </p>
@@ -145,10 +145,14 @@
       </p>
    
     <p>
-      <input type="submit" class="btn btn-info" value="Add your Pet!">
+      <input type="submit" id="add-pet" class="btn btn-info" value="Add your Pet!">
     </p>
   </form>
-  
+
+  <script src="/static/testjs.js"></script>
+
+
+
 
 
 {% endblock %}

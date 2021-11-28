@@ -15,4 +15,18 @@ $('.add-pharm').on('submit', evt => {
     });
   });
 
+ 
+
+  $('.add-pet').on('submit', evt => {
+    
+  
+   
+
+
+  const nameInput = document.querySelector('input[name="pet-name"]');
+
+  if (nameInput.value.length < 1) {
+    evt.preventDefault();
+    alert('Pet name must be entered');
+  }});
 
