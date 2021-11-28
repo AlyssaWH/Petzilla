@@ -82,6 +82,13 @@
     </div>
   </nav> 
 
+  {%if notes%}
+  Your unique link for petsitter notes is: <a href="/dashboard-petsitter/{{notes}}"> {{notes}} -- Click here to view</a>
+
+  {%endif%}
+
+  {%if pets%}
+
   <h2>Add Notes for a Pet Sitter</h2>
   <form id="order-form" action="/make-instructions" method='POST'>
   {%for pet in pets%}
@@ -104,10 +111,14 @@
 {%endfor%}
 
 
+
 <div class="submit">
   <button type="submit" id="notes-button" class="btn btn-primary">Submit notes</button>
 </div>
 </form>
+
+{%endif%}
+
 
 
    

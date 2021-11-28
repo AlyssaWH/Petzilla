@@ -1,0 +1,85 @@
+body {
+    
+    color: white;
+    margin-top: 2rem;
+    height: 100%;
+    font-family: 'Futura', sans-serif;
+    text-align: left;
+    min-height: 75rem;
+    padding-top: 4.0rem;
+    background-image: url("/static/petzilla-nose.png");
+    opacity: 1;
+    background-repeat: no-repeat;
+    background-size: 95%;
+    background-position: center top;
+    background-color: #41166d;
+}
+div {
+    display: block;
+    width:200px;
+}
+form { 
+    margin: 0 auto; 
+    width:200px;
+    font-family:    'Geometria';
+    
+}
+
+h1,h2,h3,h4,h5 {
+    font-family: 'Futura';
+    margin: 100px; 
+    width:400px;
+}
+
+ul li {
+    margin: 0 auto; 
+    width:200px;
+  }
+p {
+    font-size: 18px;
+    font-family:    'Futura';
+    margin: 0 auto; 
+    width:200px;
+}
+
+img {
+    display: block;
+    margin: 0 auto; 
+    width:200px;
+}
+.navbar-default {
+    background-color:#18c74a;
+}
+.navbar-brand {
+    color: #d7e7d2;
+    font-weight: bold;
+}
+.navbar-nav .nav-link {
+    color: #d7e7d2;
+}
+
+.card-img-top {
+    width: 100%;
+    object-fit: cover;
+}
+
+.flash-msg      { 
+    background:  padding: 0.5em;
+    border: 1px solid #aacbe2; }
+
+.accordion-body {
+    color: white;
+    margin-top: 2rem;
+    height: 100%;
+    font-family: 'Futura', sans-serif;
+    text-align: left;
+    min-height: 75rem;
+    padding-top: 4.0rem;
+    opacity: 1;
+    background-repeat: no-repeat;
+    background-size: 95%;
+    background-position: center top;
+    background-color: #41166d;
+}
+
+}

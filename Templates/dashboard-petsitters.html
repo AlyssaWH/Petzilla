@@ -3,6 +3,13 @@
 
 {% block body %}
 HELLO THIS IS DASHBOARD
+{% if user %}
+
+<button onclick="dashboard()" id="dashboard">Go back to my dashboard</button> 
+<script src="/static/gotodashboard.js"></script>
+{% endif %}
+
+
 
  {%for pet in pets%}
 <h1>{{ pet.name }}</h1>

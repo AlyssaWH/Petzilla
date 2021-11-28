@@ -75,12 +75,13 @@ def user_login():
 def show_dashboard():
     user=crud.get_user_by_id(session["user"])
     pets=crud.get_pet_by_user_id(session["user"])
+    notes=crud.get_instructions_by_user_id(session["user"]).instructions_id
     
     #sort pets by when the medicine runs out
     #query medicines by expiry  date and display that way
     reminders = crud.get_sorted_meds2(session["user"])
 
-    return render_template("dashboard.html", user=user, pets=pets, reminders=reminders)
+    return render_template("dashboard.html", user=user, pets=pets, reminders=reminders, notes=notes)
 
 #new route for update medicine information
 #take in form that probably just has new number of days of meds left
@@ -114,7 +115,7 @@ def make_instructions():
 
         new_instructions = crud.create_instructions(session['user'], notes)
         print(new_instructions)
-        flash(f"We created a unique link for you to share. Here it is! {str(new_instructions.instructions_id)}")
+        flash("You're now viewing your unique link to share with your petsitter. Copy the link from your address bar to share!")
         return redirect (f"/dashboard-petsitter/{new_instructions.instructions_id}")
 
 
@@ -124,6 +125,10 @@ def show_dashboard_petsitter(unique_id):
    
     instructions =  crud.check_unique_id(unique_id)
     userid = instructions.user_id
+    if session.get("user") == True:
+        user = session["user"]
+    else:
+        user=None
     pets = crud.get_pet_by_user_id(userid)
     for pet in pets:
         vet= crud.get_vet_by_pet_id(pet.pet_id)
@@ -136,7 +141,7 @@ def show_dashboard_petsitter(unique_id):
 
    
     return render_template("dashboard-petsitters.html", instructions=instructions, pets=pets, 
-    vet=vet, medicines=medicines, pharmacy=pharmacy)
+    vet=vet, medicines=medicines, pharmacy=pharmacy, user=user)
     
 
 @app.route("/add-pet", methods=['POST'])
