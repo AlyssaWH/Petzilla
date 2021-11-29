@@ -37,7 +37,11 @@ def send_reminder():
 
         pet= crud.get_pet_by_id(med.pet_id)
         user=crud.get_user_by_id(pet.user_id)
-        print(user.fname, user.phone)
+        new_phone = "+1"+ str(user.phone)
+        i_hate_this_format = "\'" +new_phone +"\'"
+        to_number = i_hate_this_format
+        
+        #print(user.fname, user.phone)
         
 
     #for pet in pets:
@@ -49,21 +53,26 @@ def send_reminder():
         #     if date.today() == medicine.reminder_date:
                 # pass
                 #this test print line works!
-        print(f"Hey there {user.fname}, your pet {pet.name}'s medicine {med.med_name} needs a refill, and you wanted me to remind you today, {med.reminder_date}. If this were a real text I'd text you at {user.phone}") 
+
+        message=(f"Hey there {user.fname}, your pet {pet.name}'s medicine {med.med_name} needs a refill, and you wanted me to remind you today, {med.reminder_date}. If this were a real text I'd text you at {user.phone}. ") 
         if vet:
-            print(f"Your vet number is {vet.phone}")
+            message += (f"Your vet number is {vet.phone} ")
         if pharmacy:
-            print (f"and your pharmacy number is {pharmacy.phone}.")
+            message += (f"and your pharmacy number is {pharmacy.phone}.")
 
-        # new_phone = "+1"+ str(user.phone)
-        # i_hate_this_format = "\'" +new_phone +"\'"
+    
+
+        new_phone = "+1"+ str(user.phone)
+        i_hate_this_format = "\'" +new_phone +"\'"
         
         
-        # to_number = i_hate_this_format
-
+        to_number = i_hate_this_format
+        #it works!!!
+        
+        #This is commented out to prevent "live texting" but it works when uncommented and running the server
         # message = client.messages \
         #                     .create(
-        #                         body=(f"Hey there {user.fname}, your pet {pet.name}'s medicine {med.med_name} needs a refill, and you wanted me to remind you today, {med.reminder_date}"),
+        #                         body=message,
  
         #                         from_=from_number,
         #                         to=to_number
@@ -74,16 +83,16 @@ def send_reminder():
 
 
 
-# def send_demo(i_hate_this_format):
-#     message = client.messages \
-#                             .create(
-#                                 body=("Hello from Petzilla! Your pet Fluffy's medicine, Flea-B-Gone, needs a refill, and you wanted me to remind you today! Your vet's number is 555-111-2222"),
+def send_demo(i_hate_this_format):
+    message = client.messages \
+                            .create(
+                                body=("Hello from Petzilla! Your pet Fluffy's medicine, Flea-B-Gone, needs a refill, and you wanted me to remind you today! Your vet's number is 555-111-2222"),
  
-#                                 from_=from_number,
-#                                 to=i_hate_this_format,
-#                             )
+                                from_=from_number,
+                                to=i_hate_this_format,
+                            )
 
-#     print(message.sid)
+    print(message.sid)
 
 
 

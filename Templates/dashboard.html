@@ -37,11 +37,13 @@
           <button type="button" class="btn btn-primary">Samsung</button>
           <button type="button" class="btn btn-primary">Sony</button>
         </div>  -->
+        <h2>Here's your upcoming reminders to refill medicines:</h2>
+        <br>
         {%for reminder in reminders%}
         Reorder by
 
         {{reminder[0].strftime('%m-%d-%Y')}} 
-        {{reminder[1]}} 
+        for {{reminder[1]}} :
         {{reminder[2]}} 
 
 

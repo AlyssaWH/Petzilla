@@ -15,6 +15,13 @@ $('.add-pharm').on('submit', evt => {
     });
   });
 
+  $('.add-notes').keydown(function (e) {
+    if (e.keyCode == 13) {
+        e.preventDefault();
+        
+    }
+});
+
  
 
   $('.add-pet').on('submit', evt => {

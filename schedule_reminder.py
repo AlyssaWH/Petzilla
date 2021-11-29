@@ -73,7 +73,8 @@ def background_job():
     print('Hello from the background threaaad Im checking if you need a teeeext')
     send_sms.send_reminder()
 
-schedule.every(1).minutes.do(background_job)
+schedule.every(18).hours.do(background_job)
+#changed 9.24 am
 #schedule.every(1).hours.at("09:53").do(background_job)
 
 # Start the background thread
