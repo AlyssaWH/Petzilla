@@ -62,7 +62,7 @@
           <h1>{{ medicine.med_name}}
           This medicine runs out on  {{medicine.date_used_by.strftime('%m-%d-%Y')}}</h1>
           Update this medicine?
-          <form id="update-medicine" action="/update-medicine" method='POST'>
+          <form class="update-medicine" action="/update-medicine" method='POST'>
             
               <input type="hidden" id="med" name="med" value="{{medicine.med_id}}">
               <input type="hidden" id="pet" name="pet" value="{{pet.pet_id}}">
@@ -76,9 +76,12 @@
                   <button type="submit" id="update-med-button" class="btn btn-primary">Update my reminder date</button>
                 </div>
                 </form>
+                <script src="/static/testjs.js"></script>
+
         
      {%endfor%}
     {%endfor%}
+
     </div>
   </nav> 
 

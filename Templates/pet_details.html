@@ -80,7 +80,7 @@ What would you like to do?<h2>Add a Vet for Your Pet</h2>
 
 Add a medicine
 <h2>Add a Medicine for Your Pet</h2>
-<form action="/pets/{{pet.pet_id}}/add-med" method='POST'>
+<form class="add-med" action="/pets/{{pet.pet_id}}/add-med" method='POST'>
   <input type="hidden" id="pet_id" name="pet_id" value={{pet.pet_id}}>
   <p>
     Medicine Name <input type="text" name="med-name">

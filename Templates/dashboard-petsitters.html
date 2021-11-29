@@ -2,7 +2,7 @@
 {% block title %}Petzilla - Add Your Pets{% endblock %}
 
 {% block body %}
-HELLO THIS IS DASHBOARD
+Petzilla!'s Pet Sitter Dashboard
 {% if user %}
 
 <button onclick="dashboard()" id="dashboard">Go back to my dashboard</button> 
@@ -26,7 +26,18 @@ HELLO THIS IS DASHBOARD
 
 <h1>Medicine Info: {{ medicine.med_name}} 
     Used By:{{medicine.date_used_by.strftime('%m/%d/%Y')}}
-    I'll remind you on: {{medicine.reminder_date.strftime('%m/%d/%Y')}}</h1>
+    Prescription Number: {{medicine.prescrip_num}}
+    Dose Amount: {{medicine.dose_amount}}
+    {% if medicine.doses_per_day%}
+    Doses per day: {{medicine.doses_per_day}}
+    {% endif %}
+    {% if medicine.doses_per_month %}
+    Doses per month: {{medicine.doses_per_month}}
+    {% endif %}
+
+
+
+   </h1>
 {%endfor%}
 
 {% for pharmacy in pet.pharm_objects %}

@@ -255,7 +255,9 @@ def add_a_vet(pet_id):
 
     crud.create_vet(pet_id, practice_name, phone, vet_fname, vet_lname, email)
     flash("Vet created!  Adding to your pet's page")
-    return redirect ("/dashboard")
+    #return redirect ("/dashboard")
+    return redirect(f"/pets/{pet_id}")
+
 
 @app.route("/pets/<pet_id>/add-med", methods=['POST'])
 def add_a_med(pet_id):
@@ -282,7 +284,9 @@ def add_a_med(pet_id):
 
     crud.update_med_reminder(user_id=session['user'], med_id=new_med.med_id)
     flash("Medicine created!  Adding to your pet's page")
-    return redirect ("/dashboard")
+    #return redirect ("/dashboard")
+    return redirect(f"/pets/{pet_id}")
+
 
 
 @app.route("/pets/<pet_id>", methods=['POST'])
@@ -306,14 +310,6 @@ def add_a_pharmacy(pet_id):
     #redirect ("/dashboard")
    # ("Pharmacy created!  Adding to your pet's page")
 
-# @app.route("/new-order", methods=["POST"])
-# def add_order():
-#     """Add a melon order to our database."""
-
-#     melon_type = request.form.get("type")
-#     amount = request.form.get("amount")
-
-#     return "Your order has been confirmed"
 
 
 
