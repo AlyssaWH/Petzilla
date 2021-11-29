@@ -109,10 +109,10 @@ def update_medicine():
 #needs a route that processes and creates the instructions ID
 @app.route("/make-instructions", methods=['POST'])
 def make_instructions():
-    # if crud.get_instructions_by_user_id(session['user']):
-    #     flash ("You already have a unique link for your instructions")
-    #     return redirect("/dashboard")
-    # else:
+    if crud.get_instructions_by_user_id(session['user']):
+        flash ("You already have a unique link for your instructions, check your dashboard!")
+        return redirect("/dashboard")
+    else:
         notes = request.form.getlist('notes') #how do I get all the items out of notes? flask receive a list of requests in a post  request
         print(notes)
         #notes_list = append all the notes to a list, pass the list to line 96??

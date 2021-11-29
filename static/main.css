@@ -82,4 +82,38 @@ img {
     background-color: #41166d;
 }
 
+.add-notes {
+
+    display:none;
+    
+    }
+
+    .add-pet {
+
+        display:none;
+        
+        }
+    .edit-form {
+
+            display:none;
+            
+            }
+    .add-vet {
+
+                display:none;
+                
+                }
+    .add-med {
+
+                    display:none;
+                    
+                    }
+
+    .add-pharm {
+
+                        display:none;
+                        
+                        }
+                      
+
 }

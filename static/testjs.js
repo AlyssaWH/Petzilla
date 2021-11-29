@@ -55,7 +55,7 @@ $('.add-pharm').on('submit', evt => {
       if ((dailyDose.value.length > 0) && (monthlyDose.value.length > 0)) {
         evt.preventDefault();
         alert('Daily OR monthly dose amount only');
-        
+
       }else{
         if ((dailyDose.value.length ===0) && (monthlyDose.value.length ===0)) {
 
@@ -81,4 +81,25 @@ $('.add-pharm').on('submit', evt => {
                 alert('Must enter a medicine name');
 
       }}}}}})
+
+      $(".notes-button").click(function() {
+        $(".add-notes").show();
+    })
+
+    $(".add-pet-button").click(function() {
+      $(".add-pet").show();
+  })  
+  $(".edit-form-button").click(function() {
+    $(".edit-form").show();
+})  
+$(".add-vet-button").click(function() {
+  $(".add-vet").show();
+})
+$(".add-med-button").click(function() {
+  $(".add-med").show();
+})
+$(".add-pharm-button").click(function() {
+  $(".add-pharm").show();
+})
+
 

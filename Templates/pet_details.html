@@ -35,9 +35,15 @@
 
  {% endif %}
 
-What would you like to do?<h2>Edit this Pet's Info</h2>
+What would you like to do?
+
+<button class="edit-form-button"
+type="button">
+Edit this Pet's Info
+</button>
 <form class="form-inline edit-form"  action="/pets/{{pet.pet_id}}/edit-pet" method='POST'
   enctype=multipart/form-data>
+  <h2>Edit this Pet's Info</h2>
  
       Weight in pounds (optional) <input type="integer" name="weight">
     </p>
@@ -50,8 +56,14 @@ What would you like to do?<h2>Edit this Pet's Info</h2>
   </p>
 </form>
 
-What would you like to do?<h2>Add a Vet for Your Pet</h2>
-<form action="/pets/{{pet.pet_id}}/add-vet" method='POST'>
+
+<button class="add-vet-button"
+type="button">
+Add a Vet
+</button>
+
+<form class="add-vet" action="/pets/{{pet.pet_id}}/add-vet" method='POST'>
+  <h2>Add a Vet for Your Pet</h2>
   <input type="hidden" id="pet_id" name="pet_id" value={{pet.pet_id}}>
   <p>
     Vet's First Name <input type="text" name="vet-fname">
@@ -79,8 +91,14 @@ What would you like to do?<h2>Add a Vet for Your Pet</h2>
 
 
 Add a medicine
-<h2>Add a Medicine for Your Pet</h2>
+<button class="add-med-button"
+type="button">
+Add a Medicine
+</button>
+
 <form class="add-med" action="/pets/{{pet.pet_id}}/add-med" method='POST'>
+  <h2>Add a Medicine for Your Pet</h2>
+
   <input type="hidden" id="pet_id" name="pet_id" value={{pet.pet_id}}>
   <p>
     Medicine Name <input type="text" name="med-name">
@@ -115,9 +133,14 @@ Add a medicine
 Add pharmacy info
 
 
+<button class="add-pharm-button"
+type="button">
+Add a Pharmacy
+</button>
 
-<h2>Add a Pharmacy for Your Pet</h2>
 <form class="add-pharm" method="post" action="/pets/{{pet.pet_id}}">
+  <h2>Add a Pharmacy for Your Pet</h2>
+
 <!-- add-pharm"> -->
   <input type="hidden" id="pet_id" name="pet_id" value={{pet.pet_id}}>
   <p>
