@@ -75,7 +75,12 @@ def user_login():
 def show_dashboard():
     user=crud.get_user_by_id(session["user"])
     pets=crud.get_pet_by_user_id(session["user"])
-    notes=crud.get_instructions_by_user_id(session["user"]).instructions_id
+
+    if crud.get_instructions_by_user_id(session["user"]) != None:
+        notes=crud.get_instructions_by_user_id(session["user"]).instructions_id
+    else:
+        notes=""
+    
     
     #sort pets by when the medicine runs out
     #query medicines by expiry  date and display that way
@@ -125,7 +130,7 @@ def show_dashboard_petsitter(unique_id):
    
     instructions =  crud.check_unique_id(unique_id)
     userid = instructions.user_id
-    if session.get("user") == True:
+    if session.get('user') ==  True:
         user = session["user"]
     else:
         user=None

@@ -44,18 +44,41 @@ $('.add-pharm').on('submit', evt => {
     }})
 
     $('.add-med').on('submit', evt => {
+      const medName = document.querySelector('input[name="med-name"]');
 
       const dailyDose = document.querySelector('input[name="doses-per-day"]');
       const monthlyDose = document.querySelector('input[name="doses-per-month"]');
+      const currentSupply = document.querySelector('input[name="days-left-at-entry"]');
+      const dosage = document.querySelector('input[name="dose-amount"]');
+
 
       if ((dailyDose.value.length > 0) && (monthlyDose.value.length > 0)) {
         evt.preventDefault();
         alert('Daily OR monthly dose amount only');
+        
       }else{
         if ((dailyDose.value.length ===0) && (monthlyDose.value.length ===0)) {
 
           evt.preventDefault();
           alert('Must enter a daily or monthly dose');
 
-      }}})
+      }else{
+          if (currentSupply.value.length ===0)  {
+  
+            evt.preventDefault();
+            alert('Must enter a current supply');
+
+      }else{
+            if (dosage.value.length ===0)  {
+    
+              evt.preventDefault();
+              alert('Must enter a dosage amount');
+
+      }else{
+            if (medName.value.length ===0)  {
+      
+                evt.preventDefault();
+                alert('Must enter a medicine name');
+
+      }}}}}})
 

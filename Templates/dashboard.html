@@ -57,7 +57,7 @@
           <a href="/pets/{{pet.pet_id}}" class="btn btn-info btn-lg nav-link" role="button"> {{pet.name}}</a>
     
           {{pet.name}}'s Medicines:
-          {%for medicine in pet.med_objects%}
+          {%for medicine in pet.med_objects|sort(attribute='date_used_by')%}
          
           <h1>{{ medicine.med_name}}
           This medicine runs out on  {{medicine.date_used_by.strftime('%m-%d-%Y')}}</h1>

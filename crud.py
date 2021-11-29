@@ -228,7 +228,6 @@ def create_instructions(user_id, notes):
     #Make randomized string  as the primary key for the class
     instructions_id = uuid.uuid4()
     
-    
     instruction = PetSitterInstructions(instructions_id= str(instructions_id),
     user_id=user_id, notes=notes)
     db.session.add(instruction)

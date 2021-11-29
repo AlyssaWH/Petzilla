@@ -46,9 +46,22 @@ Petzilla!'s Pet Sitter Dashboard
 
 
 {%endfor%}
-{{instructions}}
-{{instructions.notes}}
-{{instructions.user_id}}
+<!-- {{instructions.notes}} -->
+{% set notes_list = instructions.notes.split(',') %}
+{% for note in notes_list %}
+{{note}}
+
+
+{% endfor %}
+
+
+
+
+
+
+
+
+
 
 
 {% endblock %} -->
