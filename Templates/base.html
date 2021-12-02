@@ -24,12 +24,12 @@ crossorigin="anonymous">
     {% block head %}{% endblock %}
   </head>
   <body>
-    <div class = "container p-3 my-3 bg-primary text-white">
+    <div class = " petzilla-header container-fluid bg-text-white">
       <h1>Petzilla!</h1>
       </div>
       
     {% for msg in get_flashed_messages() %}
-    <p class="flash-msg alert-primary">
+    <p class="flash-msg alert-info">
       {{ msg }}
     </p>
   

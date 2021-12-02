@@ -2,26 +2,23 @@
 {% block title %}Petzilla - Try our text function{% endblock %}
 
 {% block body %}
-  <h1>Welcome to Petzilla!!</h1>
-
-  <h2>Navigation</h2>
  
 
-
-
-
-  <h2>Try our Text Function <br>
+  <h2>Try our Text Function </h2> <br>
+  <p class="demo">
     Enter your Phone Number (10 digits, no spaces), and we'll send you a text
     reminder in 1 minute. The text will use made-up values for your pet and medicine.
     Registered users can add and track this data, so if you were a user, the text would
     send on the day you asked to be reminded!
-</h2>
-  <form action="/demo-text" method='POST'>
+    </p>
+  <form class="form-group" action="/demo-text" method='POST'>
     <p>
       Your Phone Number <input type="integer" name="phone">
     </p>
     <p>
-        <input type="submit" value="Text me!">
+      
+
+        <input type="submit" value="Text me!" class="notes-button btn-lg">
       </p>
     
 

@@ -4,26 +4,30 @@
 
 {% block body %}
 
-<button onclick="dashboard()" id="dashboard">Go back to my dashboard</button> 
+<button class="btn-lg" onclick="dashboard()" id="dashboard">Go back to my dashboard</button> 
 <script src="/static/gotodashboard.js"></script>
 
 
-<h1>{{ pet.name }}</h1>
+<h1 class="update-medicine">Your Pet: {{ pet.name }}</h1>
 {% if pet.photo %}
 <img src="{{ pet.photo }}">
 
 {% endif %}
-
+<br>
 
 {% if vet %}
-<h1>Vet Info: {{ vet.fname}} {{vet.lname}} {{vet.practice_name}}</h1>
+Vet Info: {{ vet.fname}} {{vet.lname}} <br>
+Practice: {{vet.practice_name}} <br>
+ Phone: {{vet.phone}}
 {% endif %}
 
+<br><br>
 {%for medicine in medicines%}
 
-<h1>Medicine Info: {{ medicine.med_name}} 
+Medicine Info: {{ medicine.med_name}}  <br>
     Used By:{{medicine.date_used_by.strftime('%m/%d/%Y')}}
-    I'll remind you on: {{medicine.reminder_date.strftime('%m/%d/%Y')}}</h1>
+    I'll remind you on: {{medicine.reminder_date.strftime('%m/%d/%Y')}}
+    <br><br>
 {%endfor%}
 
 <div class="pharm">
@@ -31,19 +35,20 @@
 </div>
 
 {% if pharmacy %}
-<h1> Pharmacy Info: {{ pharmacy.pharm_name}} {{pharmacy.phone}}</h1> 
+ Pharmacy Info:<br>
+  {{ pharmacy.pharm_name}} {{pharmacy.phone}}
 
  {% endif %}
 
-What would you like to do?
+<h3 class="update-medicine"> What would you like to do? </h3>
 
-<button class="edit-form-button"
+<button class="edit-form-button btn-lg"
 type="button">
 Edit this Pet's Info
 </button>
 <form class="form-inline edit-form"  action="/pets/{{pet.pet_id}}/edit-pet" method='POST'
   enctype=multipart/form-data>
-  <h2>Edit this Pet's Info</h2>
+  
  
       Weight in pounds (optional) <input type="integer" name="weight">
     </p>
@@ -57,13 +62,13 @@ Edit this Pet's Info
 </form>
 
 
-<button class="add-vet-button"
-type="button">
+<button class="add-vet-button btn-lg">
+
 Add a Vet
 </button>
 
 <form class="add-vet" action="/pets/{{pet.pet_id}}/add-vet" method='POST'>
-  <h2>Add a Vet for Your Pet</h2>
+  
   <input type="hidden" id="pet_id" name="pet_id" value={{pet.pet_id}}>
   <p>
     Vet's First Name <input type="text" name="vet-fname">
@@ -84,20 +89,19 @@ Add a Vet
     </p>
  
   <p>
-    <input type="submit" value="Add your Pet's Vet!">
+    <input type="submit" class="btn btn-info" value="Add your Pet's Vet!">
   </p>
 </form>
 
 
 
 
-<button class="add-med-button"
+<button class="add-med-button btn-lg"
 type="button">
 Add a Medicine
 </button>
 
 <form class="add-med" action="/pets/{{pet.pet_id}}/add-med" method='POST'>
-  <h2>Add a Medicine for Your Pet</h2>
 
   <input type="hidden" id="pet_id" name="pet_id" value={{pet.pet_id}}>
   <p>
@@ -123,7 +127,7 @@ Add a Medicine
     </p>
  
   <p>
-    <input type="submit" value="Add your Pet's Medicine!">
+    <input type="submit" class="btn btn-info" value="Add your Pet's Medicine!">
   </p>
 </form>
 
@@ -133,13 +137,13 @@ Add a Medicine
 
 
 
-<button class="add-pharm-button"
+<button class="add-pharm-button btn-lg"
 type="button">
 Add a Pharmacy
 </button>
 
 <form class="add-pharm" method="post" action="/pets/{{pet.pet_id}}">
-  <h2>Add a Pharmacy for Your Pet</h2>
+  
 
 <!-- add-pharm"> -->
   <input type="hidden" id="pet_id" name="pet_id" value={{pet.pet_id}}>
@@ -157,7 +161,7 @@ Add a Pharmacy
     </p>
  
   <p>
-    <input type="submit" value="Add your Pet's Pharmacy!">
+    <input type="submit" class="btn btn-info" value="Add your Pet's Pharmacy!">
   </p>
 </form>
 <script src="/static/testjs.js"></script>

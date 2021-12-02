@@ -8,9 +8,9 @@
   <ul>
     <li><a href="/settings">View all settings</a></li>
     <li><a href="/pets">View my pets</a></li>
-  </ul> -->
-
-  <h2>Log In to an Account</h2>
+  </ul> --><br><br>
+  <div class="login">
+  <h4>Log In to an Account</h4>
   <form action="/login" method="POST">
     <p>
       Email <input type="text" name="login-email">
@@ -21,11 +21,12 @@
     </p>
 
     <p>
-      <input type="submit" value="Log In">
+      <input type="submit" value="Log In" class="notes-button btn-lg">
     </p>
   </form>
+  </div>
   
-
+  <div class="create-account">
   <h2>Create an Account</h2>
 
   
@@ -39,6 +40,7 @@
         <div class="accordion-body">
         
   <form action="/users" method="POST">
+    <div class="form-group">
     <p>
       Email <input type="text" name="email">
     </p>
@@ -47,9 +49,11 @@
       Password <input type="password" name="password">
     </p>
     <p>
-        First Name <input type="fname" name="fname">
-      </p>
+    First Name 
+         <input type="fname" name="fname">
+    </p>
       <p>
+
         Last Name <input type="lname" name="lname">
       </p>
       <p>
@@ -65,17 +69,31 @@
         <input type="remind_time_preference" name="remind_time_preference">
       </p>
     <p>
-      <input type="submit" value="Create Your Account">
+      <input type="submit" value="Create Your Account" class="notes-button btn-lg">
     </p>
   </form>
+  </div>
         
         </div>
       </div>
+    
     </div>
+
   
 
-How does Petzilla work?  
+<div class="what-is">
+<h4> What is Petzilla? </h4>
+<div class="text">
+Petzilla helps you keep track of your pets' medications.   If you have  several pets or older pets, 
+you may find yourself constantly refilling  meds at the last minute!  With  Petzilla, you enter your
+pets, medicine, and vet/pharmacy info. Tell us how early  you want to be reminded, and tell us how many days
+of meds you have right now.  We'll do the rest!  Your dashboard will always show your upcoming med reminders,
+and we'll even text you on the day of to remind you! </div>
+<br>
+<h4> How does Petzilla work?  </h4>
+<div class="demo-link">
 <a href="/demo-text-splash">Send yourself a demo text here!</a>
-
+</div>
+</div>
 
 {% endblock %}
