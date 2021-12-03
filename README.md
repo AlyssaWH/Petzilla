@@ -17,6 +17,7 @@ Alyssa Warnick-Hesse, inspired by her dog, Mozilla! Find me on [LinkedIn](https:
 ## Technologies
 
 **Tech Stack:**
+
 -Front End:
 - Javascript
 - JQuery
